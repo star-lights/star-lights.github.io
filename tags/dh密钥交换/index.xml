@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 18 Sep 2021 21:16:39 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/dh%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elgamal加密算法</title>
-      <link>https://star-lights.github.io/post/homoencrypt/</link>
+      <link>https://star-lights.github.io/post/elgamal/</link>
       <pubDate>Sat, 18 Sep 2021 21:16:39 +0800</pubDate>
       
-      <guid>https://star-lights.github.io/post/homoencrypt/</guid>
+      <guid>https://star-lights.github.io/post/elgamal/</guid>
       <description>从素数说起 素数又称为质数，是指大于1的整数，且除了1和它本身以外，不能被其他任何整数整除。在英文中，素数被称为“prime number”，“</description>
     </item>
     
