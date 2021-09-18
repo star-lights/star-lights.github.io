@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Hello Clustar">
 <meta itemprop="description" content="星云Clustar是国内率先开展隐私计算技术实现与应用探索的公司，专注金融场景提供隐私计算全栈技术服务，以IEEE联邦学习标准工作组秘书长单"><meta itemprop="datePublished" content="2021-09-18T11:51:01&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-18T11:51:01&#43;08:00" />
-<meta itemprop="wordCount" content="366">
+<meta itemprop="wordCount" content="2392">
 <meta itemprop="keywords" content="Clustar,星云," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hello Clustar"/>
 <meta name="twitter:description" content="星云Clustar是国内率先开展隐私计算技术实现与应用探索的公司，专注金融场景提供隐私计算全栈技术服务，以IEEE联邦学习标准工作组秘书长单"/>
@@ -142,7 +142,7 @@
       <p>星云Clustar是国内率先开展隐私计算技术实现与应用探索的公司，专注金融场景提供隐私计算全栈技术服务，以IEEE联邦学习标准工作组秘书长单位牵头完成联邦学习首个国际标准认证发布，其算力加速能力处于行业领先地位，核心产品星云隐私计算平台已实现商业化。</p>
 <p>星云Clustar目前与建设银行、招商银行、微众银行等技术实践领先的金融机构达成深度合作，共同解决金融场景的数据安全及数据价值共享难题。</p>
 <p>公司创始人陈凯为香港科技大学教授，香港人工智能与机器人学会副理事长，网络及AI系统领域世界权威专家，核心团队来自香港科技大学、北京大学及中科院等知名院校，以及腾讯、阿里巴巴、微软、IBM等知名企业的行业专家。</p>
-<p>what&rsquo;s the problem?</p>
+<p>what&rsquo;s the problem??</p>
 <p>$$
 f(x) = \int_{-\infty}^{\infty}\hat f(\xi), e^{2 \pi i \xi x},d\xi
 $$</p>
@@ -175,6 +175,148 @@ $$N=p<em>q$$
 $$\lambda(n) = \phi(n) = (p-1)</em>(q-1)$$
 $$m = c^d\ mod(N)$$
 $$ed\equiv{1}\pmod{\phi(N)} $$</p>
+<p>^表示上标，
+_表示下标，
+如果上（下）标内容多于一个字符就需要使用{}，注意不是( ), 因为( )经常是公式本身组成部分，为避免冲突，所以选用了{ } 将其包起来。</p>
+<p>示例：$x^{y^z}=(1+e^x)^{-2xy^w}$</p>
+<p>效果：xyz=(1+ex)−2xyw
+上面输入的上下标都是在字符的右侧，要想在左侧或者两侧都写上下标，那么需要使用\sideset语法。</p>
+<p>示例：$\sideset{^1_2}{^3_4}\bigotimes$</p>
+<p>效果：12⨂34</p>
+<p>3.3 括号和分隔符</p>
+<p>( )和[ ]就是自身了，由于{ } 是Tex的元字符，所以表示它自身时需要转义。</p>
+<p>示例：$f(x,y) = x^2 + y^2, x\epsilon[0,100]$</p>
+<p>效果：f(x,y)=x2+y2,xϵ[0,100]
+有时候括号需要大号的，普通括号不好看，此时需要使用\left和\right加大括号的大小。</p>
+<p>示例：$(\frac{x}{y})^8，\left(\frac{x}{y}\right)^8$</p>
+<p>效果：(xy)8，(xy)8
+\left和\right必须成对出现，对于不显示的一边可以使用 . 代替。</p>
+<p>示例：$\left.\frac{{\rm d}u}{{\rm d}x} \right| _{x=0}$</p>
+<p>效果：dudx∣∣x=0
+3.4 分数</p>
+<p>使用\frac{分子}{分母}格式，或者 分子\over 分母。</p>
+<p>示例：$\frac{1}{2x+1}或者1\over{2x+1}$</p>
+<p>效果：12x+1或者12x+1
+3.5 开方</p>
+<p>示例：$\sqrt[9]{3}和\sqrt{3}$</p>
+<p>效果：3‾‾√9 和 3‾‾√
+3.6 省略号</p>
+<p>有两种省略号，\ldots 表示语文本底线对其的省略号，\cdots表示与文本中线对其的省略号。</p>
+<p>示例：$f(x_1, x_2, \ldots, x_n)=x_1^2 + x_2^2+ \cdots + x_n^2$</p>
+<p>效果：f(x1,x2,…,xn)=x21+x22+⋯+x2n
+3.7 矢量</p>
+<p>示例：$\vec{a} \cdot \vec{b}=0$</p>
+<p>效果: a⃗ ⋅b⃗ =0
+3.8 积分</p>
+<p>示例：$\int_0^1x^2{\rm d}x $</p>
+<p>效果： ∫10x2dx
+3.9 极限</p>
+<p>示例：$\lim_{n\rightarrow+\infty}\frac{1}{n(n+1)}$</p>
+<p>效果： limn→+∞1n(n+1)
+3.10 累加、累乘</p>
+<p>示例：$\sum_1^n\frac{1}{x^2}，\prod_{i=0}^n\frac{1}{x^2}$</p>
+<p>效果：∑n11x2， ∏ni=01x2
+3.11 希腊字母</p>
+<p>希腊字符示例：$$\alpha　A　\beta　B　\gamma　\Gamma　\delta　\Delta　\epsilon　E \varepsilon　　\zeta　Z　\eta　H　\theta　\Theta　\vartheta \iota　I　\kappa　K　\lambda　\Lambda　\mu　M　\nu　N \xi　\Xi　o　O　\pi　\Pi　\varpi　　\rho　P \varrho　　\sigma　\Sigma　\varsigma　　\tau　T　\upsilon　\Upsilon \phi　\Phi　\varphi　　\chi　X　\psi　\Psi　\omega　\Omega$$</p>
+<p>效果：</p>
+<p>α　A　β　B　γ　Γ　δ　Δ　ϵ　Eε　　ζ　Z　η　H　θ　Θ　ϑι　I　κ　K　λ　Λ　μ　M　ν　Nξ　Ξ　o　O　π　Π　ϖ　　ρ　Pϱ　　σ　Σ　ς　　τ　T　υ　Υϕ　Φ　φ　　χ　X　ψ　Ψ　ω　Ω</p>
+<p>3.12 数学符号大汇总
+± ：\pm
+× ：\times
+÷：\div
+∣：\mid</p>
+<p>⋅：\cdot
+∘：\circ
+∗: \ast
+⨀：\bigodot
+⨂：\bigotimes
+⨁：\bigoplus
+≤：\leq
+≥：\geq
+≠：\neq
+≈：\approx
+≡：\equiv
+∑：\sum
+∏：\prod
+∐：\coprod</p>
+<p>集合运算符：
+∅：\emptyset
+∈：\in
+∉：\notin
+⊂：\subset
+⊃ ：\supset
+⊆ ：\subseteq
+⊇ ：\supseteq
+⋂ ：\bigcap
+⋃ ：\bigcup
+⋁ ：\bigvee
+⋀ ：\bigwedge
+⨄ ：\biguplus
+⨆：\bigsqcup</p>
+<p>对数运算符：
+log ：\log
+lg ：\lg
+ln ：\ln</p>
+<p>三角运算符：
+⊥：\bot
+∠：\angle
+30∘：30^\circ
+sin ：\sin
+cos ：\cos
+tan ：\tan
+cot ：\cot
+sec ：\sec
+csc ：\csc</p>
+<p>微积分运算符：
+y′x：\prime
+∫：\int
+∬ ：\iint
+∭ ：\iiint
+⨌：\iiiint
+∮ ：\oint
+lim ：\lim
+∞ ：\infty
+∇：\nabla</p>
+<p>逻辑运算符：
+∵：\because
+∴ ：\therefore
+∀ ：\forall
+∃ ：\exists
+≠ ：\not=
+≯：\not&gt;
+⊄：\not\subset</p>
+<p>戴帽符号：
+ŷ ：\hat{y}
+yˇ：\check{y}
+y˘：\breve{y}</p>
+<p>连线符号：
+a+b+c+d⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯：\overline{a+b+c+d}
+a+b+c+d⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯：\underline{a+b+c+d}
+a+b+c⏟1.0+d2.0：\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}</p>
+<p>箭头符号：
+↑：\uparrow
+↓：\downarrow
+⇑ ：\Uparrow
+⇓：\Downarrow
+→：\rightarrow
+← ：\leftarrow
+⇒ ：\Rightarrow
+⇐ ：\Leftarrow
+⟶ ：\longrightarrow
+⟵ ：\longleftarrow
+⟹：\Longrightarrow
+⟸ ：\Longleftarrow</p>
+<p>3.13 需要转义的字符</p>
+<p>要输出字符　空格　#　$　%　&amp;　_　{　}　，用命令：　\空格　#　$　%　&amp;　_　{　}</p>
+<p>3.14 使用指定字体</p>
+<p>{\rm text}如：
+使用罗马字体：text text
+其他的字体还有：
+\rm　　罗马体　　　　　　　\it　　意大利体
+\bf　　黑体　　　　　　　　\cal 　花体
+\sl　　倾斜体　　　　　　　\sf　　等线体
+\mit 　数学斜体　　　　　　\tt　　打字机字体
+\sc　　小体大写字母</p>
 
     </div>
 
