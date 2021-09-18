@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Starlights</title>
+    <link>https://star-lights.github.io/categories/</link>
+    <description>Recent content in Categories on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 18 Sep 2021 11:51:01 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI</title>
+      <link>https://star-lights.github.io/categories/ai/</link>
+      <pubDate>Sat, 18 Sep 2021 11:51:01 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/categories/ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>隐私计算</title>
+      <link>https://star-lights.github.io/categories/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/</link>
+      <pubDate>Sat, 18 Sep 2021 11:51:01 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/categories/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

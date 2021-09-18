@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://star-lights.github.io/sitemap.xml
