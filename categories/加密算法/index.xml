@@ -16,5 +16,14 @@
       <description>从素数说起 素数又称为质数，是指大于1的整数，且除了1和它本身以外，不能被其他任何整数整除。在英文中，素数被称为“prime number”，“</description>
     </item>
     
+    <item>
+      <title>Elgamal加密算法</title>
+      <link>https://star-lights.github.io/post/homoencrypt/</link>
+      <pubDate>Sat, 18 Sep 2021 21:16:39 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/homoencrypt/</guid>
+      <description>从素数说起 素数又称为质数，是指大于1的整数，且除了1和它本身以外，不能被其他任何整数整除。在英文中，素数被称为“prime number”，“</description>
+    </item>
+    
   </channel>
 </rss>
