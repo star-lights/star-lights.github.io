@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Elgamal加密算法">
 <meta itemprop="description" content="从素数说起 素数又称为质数，是指大于1的整数，且除了1和它本身以外，不能被其他任何整数整除。在英文中，素数被称为“prime number”，“"><meta itemprop="datePublished" content="2021-09-18T21:16:39&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-18T21:16:39&#43;08:00" />
-<meta itemprop="wordCount" content="2114">
+<meta itemprop="wordCount" content="2307">
 <meta itemprop="keywords" content="DH密钥交换,Elgamal,同态加密," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Elgamal加密算法"/>
 <meta name="twitter:description" content="从素数说起 素数又称为质数，是指大于1的整数，且除了1和它本身以外，不能被其他任何整数整除。在英文中，素数被称为“prime number”，“"/>
@@ -203,6 +203,10 @@ DE2BCBF6 95581718 3995497C EA956AE5 15D22618 98FA0510<br>
 </blockquote>
 <p>即，两个数加密之后相乘，结果等于两个数相乘之后再加密。</p>
 <p>由于$a$和$b$可以每次加密随机选取，因此对于相同的消息$m$，每次加密结果都不同。</p>
+<h2 id="模运算modp">模运算$\mod(p)$</h2>
+<p>在DH密钥交换中，$(g^b)^a=(g^a)^b=g^{ab}$，为何Alice和Bob不直接使用$g^{ab}$，而是使用模运算的结果$g^{ab}\ mod(p)$作为共享密钥？
+因为$a$和$b$的取值往往很大，因此$g^{ab}$的值会异常大，大到无法存储和计算。</p>
+<p>而因为$mod(p)$的引入，从而产生了对明文$m$的长度要求：其位数不能超过$p$的位数。</p>
 
     </div>
 
