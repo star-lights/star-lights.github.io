@@ -49,7 +49,7 @@
 <meta itemprop="name" content="RSA加密算法">
 <meta itemprop="description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"><meta itemprop="datePublished" content="2021-09-19T17:01:49&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-19T17:01:49&#43;08:00" />
-<meta itemprop="wordCount" content="2088">
+<meta itemprop="wordCount" content="2058">
 <meta itemprop="keywords" content="RSA,非对称加密,同态加密," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="RSA加密算法"/>
 <meta name="twitter:description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"/>
@@ -141,8 +141,8 @@
       <h2 id="质因数分解">质因数分解</h2>
 <p>根据<strong>算术基本定理</strong>，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times$13，7和13就是91的质因数。假设$p、q$是两个质数，令$N=p\times q$，那么$p和q$就是$N$的（唯一的）一对质因数，而当$p和q$非常大时，已知$N$求$p和q$是一件非常困难的事情。</p>
 <blockquote>
-<p>$p*q = N$（已知$p、q$，计算$N$容易）<br>
-$N\rightarrow p、q$（已知$N$，计算$p、q$困难）</p>
+<p>$p*q \rightarrow N$（容易）<br>
+$N\rightarrow p、q$（困难）</p>
 </blockquote>
 <p>在一个方向上易于计算，在反方向上计算困难，这是所谓的“单向陷门函数”，即：</p>
 <blockquote>
@@ -167,7 +167,7 @@ $N\rightarrow p、q$（已知$N$，计算$p、q$困难）</p>
 <h2 id="欧拉定理">欧拉定理</h2>
 <p>数学上有很多以欧拉命名的定理，这里讨论的欧拉定理是数论领域的欧拉定理，与欧拉函数相关。</p>
 <blockquote>
-<p><strong>欧拉定理</strong>：若正整数$a$和$n$互质，则$a^{\phi(n)}\equiv1\mod(n)$</p>
+<p><strong>欧拉定理</strong>：若正整数$a$和$n$互质，则$a^{\phi(n)}\equiv1\mod(n)$。</p>
 </blockquote>
 <p>举例来说，若$n=6$，则$\phi(n)=2$（小于6的整数中只有1和5和其互质），取$a=5$，有$a^{\phi(n)}=5^2\equiv1\mod(6)$。</p>
 <p>而如果$a$本身就是一个质数，记为$p$（表prime），则$\phi(p)=p-1$，从而对于所有小于$p$的，或者大于$p$但和$p$互质的正整数$x$，有$x^{p-1}\equiv1\mod(p)$</p>
@@ -199,7 +199,7 @@ $N\rightarrow p、q$（已知$N$，计算$p、q$困难）</p>
 <p>这种算法又被称为朴素RSA算法，或者叫教科书RSA算法，实际应用中并不会被直接使用。原因是，对于相同的明文，每次加密产生的密文都相同，这就给攻击者提供了便利。</p>
 <p>最理想的加密效果是，即使对于相同的明文，每次加密的结果都不相同，Elgamal算法就具备着特性，但是朴素RSA算法不是。</p>
 <p>为了获得这种特性，真实应用的RSA算法会结合使用$padding$，即在原文中填充一段随机数值之后，再进行加密，这样就可以保证同一段明文，多次加密的结果各不相同。</p>
-<p>然而，由于$padding$的加入，却使得RSA算法丢失了原本拥有的乘法同态特性。假定在某填充规则下，明文和填充后明文形成映射：$m_1\leftrightarrow m_1'$，$m_2\leftrightarrow m_2'$，而$D(c_1, c_2)$得到的结果是$m_1'*m_2'$，这时无法套用填充规则，从$m_1'<em>m_2'$得到$m_1</em>m_2$。</p>
+<p>然而，由于$padding$的加入，却使得RSA算法丢失了原本拥有的乘法同态特性。假定在某填充规则下，明文和填充后明文形成映射：$m_1\leftrightarrow m_1'$，$m_2\leftrightarrow m_2'$，而$D(c_1,c_2)$得到的结果是$m_1&rsquo;m_2'$，这时无法套用填充规则得到$m_1$$m_2$。</p>
 
     </div>
 
