@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="王剑" /><meta name="description" content="" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+<meta name="author" content="王剑" /><meta name="description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="RSA加密算法" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://star-lights.github.io/post/rsa/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-19T17:01:49&#43;08:00" />
 <meta property="article:modified_time" content="2021-09-19T17:01:49&#43;08:00" />
 
 <meta itemprop="name" content="RSA加密算法">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2021-09-19T17:01:49&#43;08:00" />
+<meta itemprop="description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"><meta itemprop="datePublished" content="2021-09-19T17:01:49&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-19T17:01:49&#43;08:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="wordCount" content="2124">
 <meta itemprop="keywords" content="RSA,非对称加密,同态加密," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="RSA加密算法"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,7 +138,69 @@
 
     
     <div class="post-content">
-      
+      <h2 id="质因数分解">质因数分解</h2>
+<p>根据<strong>算术基本定理</strong>，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times$13，7和13就是91的质因数。假设$p、q$是两个质数，令$N=p\times q$，那么$p和q$就是$N$的（唯一的）一对质因数，而当$p和q$非常大时，已知$N$求$p和q$是一件非常困难的事情。</p>
+<blockquote>
+<p>$p*q = N$（已知$p、q$，计算$N$容易）<br>
+$N\rightarrow p、q$（已知$N$，计算$p、q$困难）</p>
+</blockquote>
+<p>在一个方向上易于计算，在反方向上计算困难，这是所谓的“单向陷门函数”，即：</p>
+<blockquote>
+<p>已知$x$易于计算$f(x)$；已知$f(x)$却难以计算$x$</p>
+</blockquote>
+<p>Elgamal加密算法中，已知$g、p、g^a\mod(p)$，计算$a$却非常困难，就是利用了单向陷门函数的特性，具体而言，Elgamal算法中使用的单向陷门函数是离散对数函数：</p>
+<blockquote>
+<p>$f(x) = g^x\mod(p)$</p>
+</blockquote>
+<p>RSA加密算法同样利用了单向陷门函数，而且形式还更简单：</p>
+<blockquote>
+<p>$f(x, y) = x*y$</p>
+</blockquote>
+<p>如前所述，如果$x、y$是两个超大质数，计算其乘积很容易，而根据乘积反算$x$和$y$则异常困难。</p>
+<h2 id="欧拉函数">欧拉函数</h2>
+<p>对于正整数$n$，欧拉函数表示小于$n$的正整数与$n$互质的数的个数，一般表示为$\phi(n)$。</p>
+<p>显然，对于质数$p$，有$\phi(p) = p-1$，因为质数和所有比它本身小的正整数互质。</p>
+<p>而对于质数$p、q$，以及$N=p*q$，则有：</p>
+<blockquote>
+<p>$\phi(N)=\phi(p)*\phi(q)=(p-1)(q-1)$。</p>
+</blockquote>
+<h2 id="欧拉定理">欧拉定理</h2>
+<p>数学上有很多以欧拉命名的定理，这里讨论的欧拉定理是数论领域的欧拉定理，与欧拉函数相关。</p>
+<blockquote>
+<p><strong>欧拉定理</strong>：若正整数$a$和$n$互质，则$a^{\phi(n)}\equiv1\mod(n)$</p>
+</blockquote>
+<p>举例来说，若$n=6$，则$\phi(n)=2$（小于6的整数中只有1和5和其互质），取$a=5$，有$a^{\phi(n)}=5^2\equiv1\mod(6)$。</p>
+<p>而如果$a$本身就是一个质数，记为$p$（表prime），则$\phi(p)=p-1$，从而对于所有小于$p$的，或者大于$p$但和$p$互质的正整数$x$，有$x^{p-1}\equiv1\mod(p)$</p>
+<p>这实际上是欧拉定理的一个特殊情况，被称为<strong>费马小定理</strong>。</p>
+<h2 id="模反元素">模反元素</h2>
+<p>如果$a*b\equiv1\mod(n)$，那么$b$就是$a$的模反元素，当然，$a$也是$b$的模反元素。</p>
+<p>根据欧拉定理，当$a$与$n$互质，则$a^\phi(n)\equiv1\mod(n)$，即$a*a^{\phi(n)-1}\equiv1\mod(n)$，从而$a^{\phi(n)-1}$就是$a$的模反元素。因此得出一条重要的结论：</p>
+<blockquote>
+<p>若$a$与$n$互质，则一定存在整数b，使得$a*b \equiv 1\mod(p)$。</p>
+</blockquote>
+<h2 id="rsa加密算法">RSA加密算法</h2>
+<p>作为最经典非对称加密算法，RSA算法建立在以上数学基础之上。假设通信双方为Alice和Bob，其交互流程如下：</p>
+<blockquote>
+<ol>
+<li>Alice随机选取两个超大质数$p、q$，并计算出$N=p*q$，以及$\phi(N)=(p-1)(q-1)$。</li>
+<li>Alice挑选一个与$\phi(N)$互质的整数$e$，同时计算出其模反元素$d$，使得$e*d\equiv1\mod(\phi(N))$。（根据欧拉定理，模反元素一定存在）</li>
+<li>Alice销毁$p、q、\phi(N)$这三个元素，保留$N、e、d$三个元素，将$(N, e)$作为公钥发送给Bob，保留$d$，与$N$一起，以$(N, d)$作为私钥。</li>
+<li>Bob获得Alice的公钥$(N, e)$，对消息$m$进行加密：$c = m^e\mod(N)$，发送给Alice。</li>
+<li>Alice收到密文$c$进行解密：$c^d=m^{ed}\equiv m \mod(N)$</li>
+</ol>
+</blockquote>
+<p>算法流程中$e$表示$encryption\ exponent$，因此作为公钥，$d$表示$decryption\ exponent$，因此作为私钥。$c$表示$cyper$，密文。</p>
+<p>解密过程$c^d=m^{ed}\equiv m \mod(N)$，可以根据欧拉定理推导出来，具体过程不赘述。</p>
+<h2 id="同态性">同态性</h2>
+<p>上述RSA加密算法具备乘法同态特性。如Bob对两个不同消息$m_1$和$m_2$分别加密得到$c_1$和$c_2$，则：</p>
+<blockquote>
+<p>$D(c_1*c_2)=D(m_1^em_2^e\mod(N))=D(c_1)*D(c_2)$</p>
+</blockquote>
+<p>这种算法又被称为朴素RSA算法，或者叫教科书RSA算法，实际应用中并不会被直接使用。原因是，对于相同的明文，每次加密产生的密文都相同，这就给攻击者提供了便利。</p>
+<p>最理想的加密效果是，即使对于相同的明文，每次加密的结果都不相同，Elgamal算法就具备着特性，但是朴素RSA算法不是。</p>
+<p>为了获得这种特性，真实应用的RSA算法会结合使用$padding$，即在原文中填充一段随机数值之后，再进行加密，这样就可以保证同一段明文，多次加密的结果各不相同。</p>
+<p>然而，由于$padding$的加入，却使得RSA算法丢失了原本拥有的乘法同态特性。假定在某填充规则下，明文和填充后明文形成映射：$m_1\leftrightarrow m_1'$，$m_2\leftrightarrow m_2'$，而$D(c_1, c_2)$得到的结果是$m_1'*m_2'$，这时无法套用填充规则，从$m_1'<em>m_2'$得到$m_1</em>m_2$。</p>
+
     </div>
 
     <div class="post-copyright">
