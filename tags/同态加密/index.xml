@@ -6,7 +6,16 @@
     <description>Recent content in 同态加密 on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 20 Sep 2021 14:54:03 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Sep 2021 20:25:01 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>仿射加密（Affine Encyption）</title>
+      <link>https://star-lights.github.io/post/affine/</link>
+      <pubDate>Mon, 20 Sep 2021 20:25:01 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/affine/</guid>
+      <description>凯撒密码 以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。 加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的</description>
+    </item>
+    
     <item>
       <title>Paillier加密算法</title>
       <link>https://star-lights.github.io/post/paillier/</link>

@@ -2,15 +2,71 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://star-lights.github.io/tags/affine/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://star-lights.github.io/categories/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://star-lights.github.io/tags/fate/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/post/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/tags/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/post/affine/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/tags/%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/</loc>
+    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,41 +80,6 @@
   
   <url>
     <loc>https://star-lights.github.io/post/paillier/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/post/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/tags/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2021-09-20T14:54:03+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2021-09-20T14:54:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

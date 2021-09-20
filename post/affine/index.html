@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>仿射加密（Affine Encyption） - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="王剑" /><meta name="description" content="凯撒密码 以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。 加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/affine/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="仿射加密（Affine Encyption）" />
+<meta property="og:description" content="凯撒密码 以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。 加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/affine/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-20T20:25:01&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-20T20:25:01&#43;08:00" />
+
+<meta itemprop="name" content="仿射加密（Affine Encyption）">
+<meta itemprop="description" content="凯撒密码 以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。 加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的"><meta itemprop="datePublished" content="2021-09-20T20:25:01&#43;08:00" />
+<meta itemprop="dateModified" content="2021-09-20T20:25:01&#43;08:00" />
+<meta itemprop="wordCount" content="1001">
+<meta itemprop="keywords" content="Affine,凯撒密码,同态加密,FATE," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="仿射加密（Affine Encyption）"/>
+<meta name="twitter:description" content="凯撒密码 以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。 加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">仿射加密（Affine Encyption）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"> 加密算法 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="凯撒密码">凯撒密码</h2>
+<p>以古罗马的凯撒大帝命名的加密方法，传说凯撒曾用此方式与将军们进行联系。</p>
+<p>加密方法非常简单，设定一个偏移量，确立明文字母表到密文字母表的映射（密码表），加密和解密都只需对照密码表即可。</p>
+<p>例如，假设偏移量为3，那么密码表为：</p>
+<table>
+<thead>
+<tr>
+<th>明文字母</th>
+<th>密文字母</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+</tr>
+<tr>
+<td>B</td>
+<td>E</td>
+</tr>
+<tr>
+<td>C</td>
+<td>F</td>
+</tr>
+<tr>
+<td>D</td>
+<td>G</td>
+</tr>
+<tr>
+<td>E</td>
+<td>H</td>
+</tr>
+<tr>
+<td>F</td>
+<td>I</td>
+</tr>
+<tr>
+<td>G</td>
+<td>J</td>
+</tr>
+<tr>
+<td>H</td>
+<td>K</td>
+</tr>
+<tr>
+<td>I</td>
+<td>L</td>
+</tr>
+<tr>
+<td>J</td>
+<td>M</td>
+</tr>
+<tr>
+<td>K</td>
+<td>N</td>
+</tr>
+<tr>
+<td>L</td>
+<td>O</td>
+</tr>
+<tr>
+<td>M</td>
+<td>P</td>
+</tr>
+<tr>
+<td>N</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>O</td>
+<td>R</td>
+</tr>
+<tr>
+<td>P</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>T</td>
+</tr>
+<tr>
+<td>R</td>
+<td>U</td>
+</tr>
+<tr>
+<td>S</td>
+<td>V</td>
+</tr>
+<tr>
+<td>T</td>
+<td>W</td>
+</tr>
+<tr>
+<td>U</td>
+<td>X</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>W</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>X</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p>根据此密码表，对明文&quot;MONDAY&quot;进行加密，只需要依次查找字母M、O、N、D、A、Y对应的密文字母，于是可以得到密文&quot;PRQDB&quot;。解密也很简单，只需反向查表。</p>
+<p>这种加密方式可以用数学形式表述为：</p>
+<blockquote>
+<p>$E(x)=(x+n)\mod26$</p>
+</blockquote>
+<p>n为偏移量，模26因为字母表共26个字母。</p>
+<h2 id="仿射加密">仿射加密</h2>
+<p>在凯撒密码的基础上稍加改造，就可以得到所谓的<strong>仿射加密（Affine Encryption）</strong>。FATE的加密算法包中提供了这种加密算法的实现。</p>
+<p>仿射加密数学形式为：</p>
+<blockquote>
+<p>$E(x)=(ax+b)\mod n$</p>
+</blockquote>
+<p>可见，与凯撒密码非常相似，都是一种线性变换，只不过$x$的系数从$1$变成了$a$，此外模$26$变成了模$n$（从而明文不必受限于26个字母）。</p>
+<p>解密也很简单，只需找到$a$的逆元$a^{-1}$（即$a*a^{-1}\equiv1\mod n$)，然后计算：</p>
+<blockquote>
+<p>$D(x)=(E(x)-b)a^{-1}\mod n$</p>
+</blockquote>
+<h2 id="迭代仿射加密">迭代仿射加密</h2>
+<p>在仿射加密的基础上，FATE还提供了一种迭代仿射加密（Iterated Affine Encryption）。算法思想很简单，就是将标准仿射加密的流程多做（迭代）几次，仅此而已。</p>
+<p>算法流程为：先随机生成$r$个元组$(a, a^{-1}, n)$，然后将标准仿射加密迭代$r$次，得到密文：</p>
+<blockquote>
+<p>$E(x) = E_r(E_{r-1}(&hellip;E_1(x)&hellip;))$</p>
+</blockquote>
+<p>同理，解密操作为：</p>
+<blockquote>
+<p>$D(x) = D_1(D_2(&hellip;D_{r}(E(x))&hellip;))$</p>
+</blockquote>
+<h2 id="同态性">同态性</h2>
+<p>凯撒密码、仿射加密、迭代仿射加密都满足<strong>加法同态</strong>，以仿射加密为例进行验证，假定明文$x_1、x_2$，密文相加：</p>
+<blockquote>
+<p>$E(x_1) + E (x_2) = a(x_1+x_2) + 2b \mod n$</p>
+</blockquote>
+<p>明文相加再加密：</p>
+<blockquote>
+<p>$E(x_1+x_2)=a(x_1+x_2)+b\mod n$</p>
+</blockquote>
+<p>可见，对于密文相加后的结果，只需要用$(a^{-1}, 2b)$进行解密，即得到明文相加结果，因此满足加法同态。</p>
+<p>此外，这些算法还满足<strong>数乘(Scalar Multiplication)同态</strong>。所谓数乘同态，指的是将密文乘以一个明文数字，解密后的值等于明文乘以该数字。</p>
+<p>仍以仿射加密进行验证，让密文乘以数字$s$：</p>
+<blockquote>
+<p>$E(x)*s = (ax+b)*s \mod n=asx+bs \mod n$</p>
+</blockquote>
+<p>利用$(a^{-1}, bs)$对以上密文进行解密，得到$sx$，即明文乘以$s$,因此满足数乘同态。</p>
+<h2 id="安全性">安全性</h2>
+<p>这几种密码的安全性较弱，很容易通过统计分析方法攻破，一般并不会使用。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">王剑</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-09-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/affine/">Affine</a>
+          <a href="/tags/%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81/">凯撒密码</a>
+          <a href="/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/">同态加密</a>
+          <a href="/tags/fate/">FATE</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/paillier/">
+            <span class="next-text nav-default">Paillier加密算法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
