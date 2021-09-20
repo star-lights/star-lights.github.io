@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://star-lights.github.io/post/</loc>
+    <lastmod>2021-09-20T22:08:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/post/spdz/</loc>
+    <lastmod>2021-09-20T22:08:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://star-lights.github.io/</loc>
+    <lastmod>2021-09-20T22:08:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://star-lights.github.io/tags/affine/</loc>
     <lastmod>2021-09-20T20:25:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,20 +38,6 @@
   
   <url>
     <loc>https://star-lights.github.io/tags/fate/</loc>
-    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/post/</loc>
-    <lastmod>2021-09-20T20:25:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://star-lights.github.io/</loc>
     <lastmod>2021-09-20T20:25:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

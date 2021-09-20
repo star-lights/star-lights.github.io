@@ -6,7 +6,16 @@
     <description>Recent content on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 20 Sep 2021 20:25:01 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Sep 2021 22:08:35 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SPDZ协议</title>
+      <link>https://star-lights.github.io/post/spdz/</link>
+      <pubDate>Mon, 20 Sep 2021 22:08:35 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/spdz/</guid>
+      <description>秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，</description>
+    </item>
+    
     <item>
       <title>仿射加密（Affine Encyption）</title>
       <link>https://star-lights.github.io/post/affine/</link>
