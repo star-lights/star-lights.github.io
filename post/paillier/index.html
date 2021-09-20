@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Paillier加密算法">
 <meta itemprop="description" content="同态加密 1977年，Riverst、Shamir、Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"><meta itemprop="datePublished" content="2021-09-20T14:54:03&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-20T14:54:03&#43;08:00" />
-<meta itemprop="wordCount" content="1837">
+<meta itemprop="wordCount" content="1942">
 <meta itemprop="keywords" content="Paillier,非对称加密,同态加密,FATE," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Paillier加密算法"/>
 <meta name="twitter:description" content="同态加密 1977年，Riverst、Shamir、Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"/>
@@ -194,6 +194,15 @@ Party B: $D(\theta_4x_4+\theta_5x_5+\theta_6x_6)$</p>
 <p>$c_1*c_2 = g^{m_1}r_1^ng^{m_2}r_2^n\mod(n^2)=g^{m_1+m_2}(r_1r_2)^n \mod(n^2)$</p>
 </blockquote>
 <p>对$c_1*c_2$解密后，即得到明文$m_1+m_2$。可见，Paillier加密满足加法同态，具体而言，<strong>在Paillier算法中，密文相乘后再解密，等于明文相加</strong>。</p>
+<p>此外，Paillier加密算法还满足<strong>数乘同态</strong>,所谓数乘同态，即密文乘以数字后解密，等于明文乘以该数字。假设密文$c$乘以数字$s$：</p>
+<blockquote>
+<p>$c<em>s=g^mr^n</em>s\mod(n^2)$</p>
+</blockquote>
+<p>解密后可得：</p>
+<blockquote>
+<p>$s*m$</p>
+</blockquote>
+<p>因此满足数乘（scalar multiplication）同态。</p>
 <h2 id="全同态">全同态</h2>
 <p>2009年，同态加密概念被提出的31年后，斯坦福大学的博士生Craig Gentry发明了首个全同态加密算法。</p>
 <p>从2009年至今，全同态加密算法的发展路线为：</p>
