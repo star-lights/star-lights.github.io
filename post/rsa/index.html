@@ -49,7 +49,7 @@
 <meta itemprop="name" content="RSA加密算法">
 <meta itemprop="description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"><meta itemprop="datePublished" content="2021-09-19T17:01:49&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-19T17:01:49&#43;08:00" />
-<meta itemprop="wordCount" content="2053">
+<meta itemprop="wordCount" content="2054">
 <meta itemprop="keywords" content="RSA,非对称加密,同态加密," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="RSA加密算法"/>
 <meta name="twitter:description" content="质因数分解 根据算术基本定理，任意一个非质数都可以拆分为若干质数的乘积形式，这个拆分过程，就是所谓的质因数分解。比如91$=$7$\times"/>
@@ -199,7 +199,7 @@ $N\rightarrow p、q$（困难）</p>
 <p>这种算法又被称为朴素RSA算法，或者叫教科书RSA算法，实际应用中并不会被直接使用。原因是，对于相同的明文，每次加密产生的密文都相同，这就给攻击者提供了便利。</p>
 <p>最理想的加密效果是，即使对于相同的明文，每次加密的结果都不相同，Elgamal算法就具备着特性，但是朴素RSA算法不是。</p>
 <p>为了获得这种特性，真实应用的RSA算法会结合使用$padding$，即在原文中填充一段随机数值之后，再进行加密，这样就可以保证同一段明文，多次加密的结果各不相同。</p>
-<p>然而，由于$padding$的加入，却使得RSA算法丢失了原本拥有的乘法同态特性。假定在某填充规则下，明文和填充后明文形成映射：$m_1\leftrightarrow m_1'$，$m_2\leftrightarrow m_2'$，而$D(c_1,c_2)$得到的结果是$m_1&rsquo;m_2'$，这时无法套用填充规则得到$m_1$$m_2$。</p>
+<p>然而，由于$padding$的加入，却使得RSA算法丢失了原本拥有的乘法同态特性。假定在某填充规则下，明文和填充后明文形成映射：$m_1\leftrightarrow m_1'$，$m_2\leftrightarrow m_2'$，而$D(c_1,c_2)$得到的结果是$m_1&rsquo;m_2'$，这时无法套用填充规则反推回$m_1$$m_2$。</p>
 
     </div>
 
