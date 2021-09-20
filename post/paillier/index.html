@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Paillier加密算法">
 <meta itemprop="description" content="同态加密 1977年，Riverst、Shamir、Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"><meta itemprop="datePublished" content="2021-09-20T14:54:03&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-20T14:54:03&#43;08:00" />
-<meta itemprop="wordCount" content="1792">
+<meta itemprop="wordCount" content="1837">
 <meta itemprop="keywords" content="Paillier,非对称加密,同态加密,FATE," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Paillier加密算法"/>
 <meta name="twitter:description" content="同态加密 1977年，Riverst、Shamir、Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"/>
@@ -239,9 +239,10 @@ Party B: $D(\theta_4x_4+\theta_5x_5+\theta_6x_6)$</p>
 </tr>
 </tbody>
 </table>
+<p>IBM的同态加密开源库HELib，以及微软的开源库SEAL，都提供了CKKS方案的实现。</p>
 <h2 id="剩余系">剩余系</h2>
-<p>对于正整数$n$，$\mod(n)$的所有可能结果构成集合${1,2,3,&hellip;,n-1}$，这个集合成为$n$的<strong>完全剩余系</strong>(complete residue system)，即所有可能余数之集合，记为$\Z_n$。例如：$\Z_6={1,2,3,4,5}$。</p>
-<p>如果加以限制，只取所有余数中与$n$互质的那部分，则称为<strong>简化剩余系</strong>(reduced residue system)，或称为<strong>缩系</strong>，记为$\Z_n^<em>$。例如$\Z_6^</em> = {1，5}$。</p>
+<p>对于正整数$n$，$\mod(n)$的所有可能结果构成集合{$1,2,3,&hellip;,n-1$}，这个集合成为$n$的<strong>完全剩余系</strong>(complete residue system)，即所有可能余数之集合，记为$\mathbb{Z}_n$。例如：$\mathbb{Z}_6=${$1,2,3,4,5$}。</p>
+<p>如果加以限制，只取所有余数中与$n$互质的那部分，则称为<strong>简化剩余系</strong>(reduced residue system)，或称为<strong>缩系</strong>，记为$\mathbb{Z}_n^*$。例如：$\mathbb{Z}_6^* =${$1,5$}。</p>
 <p>因此，Paillier加密流程的第二步</p>
 <blockquote>
 <ol start="2">
@@ -251,10 +252,9 @@ Party B: $D(\theta_4x_4+\theta_5x_5+\theta_6x_6)$</p>
 <p>可以换一种表述方式为：</p>
 <blockquote>
 <ol start="2">
-<li>随机选择$r$，$0&lt;r&lt;n$，且$r\isin\Z_n^*$（从而$r$一定存在模$n$的逆元）</li>
+<li>随机选择$r$，$0&lt;r&lt;n$，且$r\in\mathbb{Z}_n^*$（从而$r$一定存在模$n$的逆元）</li>
 </ol>
 </blockquote>
-<p>IBM的同态加密开源库HELib，以及微软的开源库SEAL，都提供了CKKS方案的实现。</p>
 
     </div>
 
