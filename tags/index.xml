@@ -6,20 +6,29 @@
     <description>Recent content in Tags on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 19 Sep 2021 17:01:49 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Sep 2021 14:54:03 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>RSA</title>
-      <link>https://star-lights.github.io/tags/rsa/</link>
-      <pubDate>Sun, 19 Sep 2021 17:01:49 +0800</pubDate>
+      <title>FATE</title>
+      <link>https://star-lights.github.io/tags/fate/</link>
+      <pubDate>Mon, 20 Sep 2021 14:54:03 +0800</pubDate>
       
-      <guid>https://star-lights.github.io/tags/rsa/</guid>
+      <guid>https://star-lights.github.io/tags/fate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Paillier</title>
+      <link>https://star-lights.github.io/tags/paillier/</link>
+      <pubDate>Mon, 20 Sep 2021 14:54:03 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/paillier/</guid>
       <description></description>
     </item>
     
     <item>
       <title>同态加密</title>
       <link>https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/</link>
-      <pubDate>Sun, 19 Sep 2021 17:01:49 +0800</pubDate>
+      <pubDate>Mon, 20 Sep 2021 14:54:03 +0800</pubDate>
       
       <guid>https://star-lights.github.io/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/</guid>
       <description></description>
@@ -28,9 +37,18 @@
     <item>
       <title>非对称加密</title>
       <link>https://star-lights.github.io/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</link>
-      <pubDate>Sun, 19 Sep 2021 17:01:49 +0800</pubDate>
+      <pubDate>Mon, 20 Sep 2021 14:54:03 +0800</pubDate>
       
       <guid>https://star-lights.github.io/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RSA</title>
+      <link>https://star-lights.github.io/tags/rsa/</link>
+      <pubDate>Sun, 19 Sep 2021 17:01:49 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/rsa/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paillier on Starlights</title>
+    <link>https://star-lights.github.io/tags/paillier/</link>
+    <description>Recent content in Paillier on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 20 Sep 2021 14:54:03 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/paillier/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paillier加密算法</title>
+      <link>https://star-lights.github.io/post/paillier/</link>
+      <pubDate>Mon, 20 Sep 2021 14:54:03 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/paillier/</guid>
+      <description>同态加密 1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，</description>
+    </item>
+    
+  </channel>
+</rss>

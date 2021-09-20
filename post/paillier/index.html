@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Paillier加密算法 - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="王剑" /><meta name="description" content="同态加密 1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/paillier/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Paillier加密算法" />
+<meta property="og:description" content="同态加密 1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/paillier/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-20T14:54:03&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-20T14:54:03&#43;08:00" />
+
+<meta itemprop="name" content="Paillier加密算法">
+<meta itemprop="description" content="同态加密 1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"><meta itemprop="datePublished" content="2021-09-20T14:54:03&#43;08:00" />
+<meta itemprop="dateModified" content="2021-09-20T14:54:03&#43;08:00" />
+<meta itemprop="wordCount" content="1442">
+<meta itemprop="keywords" content="Paillier,非对称加密,同态加密,FATE," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Paillier加密算法"/>
+<meta name="twitter:description" content="同态加密 1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Paillier加密算法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"> 加密算法 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="同态加密">同态加密</h2>
+<p>1977年，Riverst，Shamir，Adleman发明了人类历史上第一个非对称加密算法：RSA加密算法。第二年，即1978年，RSA中的R、A和Dertouzos首次提出同态加密的概念。</p>
+<p>理想的同态加密又被称为全同态，即加密算法同时满足加法同态和乘法同态两种性质，可以进行任意多次加和乘运算的加密函数。用数学公式来表达，即</p>
+<blockquote>
+<p>$D(f(E(m_1)，E(m_2)，…，E(m_k)))=f(m_1，m_2，…，mk)$<br>
+或：<br>
+$f(E(m_1)，E(m_2)，…，En(m_k))=E(f(m_1，m_2，…，m_k))$</p>
+</blockquote>
+<p>同态加密概念被提出来的30年内，一直没有突破。人们退而求其次，得到了一些“部分同态”的加密方法。比如Elgamal算法和朴素RSA算法，满足“乘法同态”，而本文所述的Paillier算法，则满足“加法同态”。</p>
+<h2 id="加法同态">加法同态</h2>
+<p>1999年发明的Paillier加密算法，是目前最常使用的同态加密算法，例如在FATE框架里，多方联合建模过程中，需要进行梯度交换，使用的加密算法就是Paillier算法，因为Paillier算法满足加法同态特性。</p>
+<p>参与方（Party）A和B各自计算出“半边”梯度，并进行加密：</p>
+<blockquote>
+<p>Party A: $D(\theta_1x_1+\theta_2x_2+\theta_3x_3)$<br>
+Party B: $D(\theta_4x_4+\theta_5x_5+\theta_6x_6)$</p>
+</blockquote>
+<p>由协调方（Arbiter）C对密态的半边梯度进行加法运算，得到密态对完整梯度：</p>
+<blockquote>
+<p>Arbiter C: $D(\theta_1x_1+\theta_2x_2+\theta_3x_3) + D(\theta_4x_4+\theta_5x_5+\theta_6x_6)$</p>
+</blockquote>
+<p>参与方对密态完整梯度进行解密，得到真实完整梯度：</p>
+<blockquote>
+<p>party A/B: $\theta_1x_1+\theta_2x_2+\theta_3x_3 + \theta_4x_4+\theta_5x_5+\theta_6x_6$</p>
+</blockquote>
+<h2 id="paillier加密算法">Paillier加密算法</h2>
+<p>Paillier加密也是一种非对称加密算法，其加解密流程如下：</p>
+<p>一. 密钥生成</p>
+<blockquote>
+<ol>
+<li>随机选取两个大素数$p、q$，并保证$gcd(pq, (p-1)(q-1))=1$(gcd: greatest common divisor，最大公约数)</li>
+<li>计算$n=p*q，\lambda=lcm(p-1, q-1)$(lcm:least common multiple，最小公倍数)</li>
+<li>定义$L(x) = \frac{x-1}{n}$</li>
+<li>随机选取一个小于$n^2$的正整数$g$，且存在$\mu$，使得$L(g^\lambda \mod(n^2)) * \mu \equiv 1 \mod(n)$</li>
+<li>公钥为$(n, g)$</li>
+<li>私钥为$(\lambda, \mu)$</li>
+</ol>
+</blockquote>
+<p>二. 加密</p>
+<blockquote>
+<ol>
+<li>明文$m$，$0&lt;m&lt;n$</li>
+<li>随机选择$r$，$0&lt;r&lt;n$，且$gcd(r, n)=1$（从而$r$一定存在模$n$的逆元）</li>
+<li>计算密文$c=g^mr^n\mod(n^2)$</li>
+</ol>
+</blockquote>
+<p>三. 解密</p>
+<blockquote>
+<p>计算明文$m=L(c^\lambda \mod(n^2))*\mu \mod(n)$</p>
+</blockquote>
+<p>Paillier解密的数学推导相对复杂，在此不赘述，不过可以分析一下它加法同态原理。</p>
+<p>假设明文$m_1$和$m_2$，由于每次加密需选用随机数$r$，因此<strong>即使对于相同明文，每次Paillier加密产生的密文都不相同</strong>。这里假设两次加密选用的随机数为$r_1$和$r_2$，因此，加密后得到的密文分别为$c_1=g^{m_1}r_1^n\mod(n^2)$和$c_1=g^{m_2}r_2^n\mod(n^2)$。</p>
+<p>计算$c_1*c_2$，有</p>
+<blockquote>
+<p>$c_1*c_2 = g^{m_1}r_1^ng^{m_2}r_2^n\mod(n^2)=g^{m_1+m_2}(r_1r_2)^n \mod(n^2)$</p>
+</blockquote>
+<p>对$c_1*c_2$解密后，即得到明文$m_1+m_2$。可见，Paillier加密满足加法同态，具体而言，<strong>在Paillier算法中，密文相乘后再解密，等于明文相加</strong>。</p>
+<h2 id="全同态">全同态</h2>
+<p>2009年，同态加密概念被提出的31年后，斯坦福大学的博士生Craig Gentry发明了首个全同态加密算法。</p>
+<p>从2009年至今，全同态加密算法的发展路线为：</p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>算法</th>
+<th>发明者</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2009</td>
+<td>Gentry方案</td>
+<td>Craig <strong>Genry</strong></td>
+<td>第一代方案</td>
+</tr>
+<tr>
+<td>2012</td>
+<td>BGV方案</td>
+<td><strong>B</strong>rakerski-<strong>G</strong>entry-<strong>V</strong>aikuntanathan</td>
+<td>第二代方案</td>
+</tr>
+<tr>
+<td>2012</td>
+<td>BFV方案</td>
+<td><strong>B</strong>rakerski/<strong>F</strong>an-<strong>V</strong>ercauteren</td>
+<td>第二代方案</td>
+</tr>
+<tr>
+<td>2013</td>
+<td>GSW方案</td>
+<td>Craig <strong>G</strong>entry, Amit <strong>S</strong>ahai, and Brent <strong>W</strong>aters</td>
+<td>第三代方案</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>CKKS方案</td>
+<td><strong>C</strong>heon, Jung Hee; <strong>K</strong>im, Andrey; <strong>K</strong>im, Miran; <strong>S</strong>ong, Yongsoo</td>
+<td>第四代方案</td>
+</tr>
+</tbody>
+</table>
+<p>IBM的同态加密开源库HELib，以及微软的开源库SEAL，都提供了CKKS方案的实现。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">王剑</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-09-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/paillier/">Paillier</a>
+          <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">非对称加密</a>
+          <a href="/tags/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/">同态加密</a>
+          <a href="/tags/fate/">FATE</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/rsa/">
+            <span class="next-text nav-default">RSA加密算法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
