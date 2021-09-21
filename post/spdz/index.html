@@ -49,7 +49,7 @@
 <meta itemprop="name" content="SPDZ协议">
 <meta itemprop="description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如"><meta itemprop="datePublished" content="2021-09-21T22:08:35&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-21T22:08:35&#43;08:00" />
-<meta itemprop="wordCount" content="1147">
+<meta itemprop="wordCount" content="1140">
 <meta itemprop="keywords" content="SPDZ,秘密共享,MPC,FATE," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SPDZ协议"/>
 <meta name="twitter:description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如"/>
@@ -185,8 +185,8 @@
 </blockquote>
 <p>因此，只要构造出合适三元组&lt;$a,b,c$&gt;，即可实现秘密共享求积。</p>
 <h2 id="spdz">SPDZ</h2>
-<p>SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为<a href="https://eprint.iacr.org/2011/535.pdf"><strong>D</strong>amg˚ard, <strong>P</strong>astro, <strong>S</strong>mart, <strong>Z</strong>akarias</a>。以SPDZ顺序命名，则是取谐音<a href="https://eprint.iacr.org/2012/642.pdf">Speedz</a>。</p>
-<p>SPDZ协议，就是基于以上求和及求积的基本原理，但是在此基础上增加了一些内容，比如安全性设计：通过使用MAC（消息验证码），可以防止恶意参与方篡改数据或者不遵守协议（至多可以允许$n-1$个恶意参与方）。</p>
+<p>SPDZ协议，以其发明者（共四人）名字的首字母命名，四人分别为<a href="https://eprint.iacr.org/2011/535.pdf"><strong>D</strong>amg˚ard, <strong>P</strong>astro, <strong>S</strong>mart, <strong>Z</strong>akarias</a>。以SPDZ顺序命名，则是取谐音<a href="https://eprint.iacr.org/2012/642.pdf">Speedz</a>。</p>
+<p>SPDZ协议基于以上求和及求积的基本原理，但是在此基础上增加了一些内容，比如安全性设计：通过使用MAC（消息验证码），可以防止恶意参与方篡改数据或者不遵守协议（至多可以允许$n-1$个恶意参与方）。</p>
 <p>FATE的MPC协议算法包中，提供了SPDZ的实现。</p>
 
     </div>
