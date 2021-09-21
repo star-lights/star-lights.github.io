@@ -6,11 +6,11 @@
     <description>Recent content in MPC on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 20 Sep 2021 22:08:35 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/mpc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Sep 2021 22:08:35 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/mpc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SPDZ协议</title>
       <link>https://star-lights.github.io/post/spdz/</link>
-      <pubDate>Mon, 20 Sep 2021 22:08:35 +0800</pubDate>
+      <pubDate>Tue, 21 Sep 2021 22:08:35 +0800</pubDate>
       
       <guid>https://star-lights.github.io/post/spdz/</guid>
       <description>秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x+y+z$，方法如</description>
