@@ -180,7 +180,9 @@
 </tbody>
 </table>
 <p>各方先计算出$x-a$和$y-b$（即$P_1$计算$x_1-a_1$，$P_2$计算$x_2-a_2$，再相加），然后$P_1$计算$c_1+(x-a)b_1+(y-b)a_1$，$P_2$计算$c_2+(x-a)b_2+(y-b)a_2 + (x-a)(y-b)$，而这两部分相加，正好就等于$x*y$，因此，即作为$P_1$和$P_2$的秘密共享值。证明很简单，两式相加即可。</p>
+<blockquote>
 <p>$c_1+(x-a)b_1+(y-b)a_1 + c_2+(x-a)b_2+(y-b)a_2 + (x-a)(y-b) = x*y$</p>
+</blockquote>
 <p>因此，只要构造出合适三元组&lt;$a,b,c$&gt;，即可实现秘密共享求积。</p>
 <h2 id="spdz">SPDZ</h2>
 <p>SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为<a href="https://eprint.iacr.org/2011/535.pdf"><strong>D</strong>amg˚ard, <strong>P</strong>astro, <strong>S</strong>mart, <strong>Z</strong>akarias</a>。以SPDZ顺序命名，则是取谐音<a href="https://eprint.iacr.org/2012/642.pdf">Speedz</a>。</p>
