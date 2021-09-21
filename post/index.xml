@@ -13,7 +13,7 @@
       <pubDate>Mon, 20 Sep 2021 22:08:35 +0800</pubDate>
       
       <guid>https://star-lights.github.io/post/spdz/</guid>
-      <description>秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，</description>
+      <description>秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x+y+z$，方法如</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>Elgamal加密算法</title>
+      <title>Diffie-Hellman密钥交换</title>
       <link>https://star-lights.github.io/post/elgamal/</link>
       <pubDate>Sat, 18 Sep 2021 21:16:39 +0800</pubDate>
       

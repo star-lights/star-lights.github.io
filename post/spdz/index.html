@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Clustar Engineering Team" /><meta name="description" content="秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+<meta name="author" content="王剑" /><meta name="description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="SPDZ协议" />
-<meta property="og:description" content="秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，" />
+<meta property="og:description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://star-lights.github.io/post/spdz/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-20T22:08:35&#43;08:00" />
 <meta property="article:modified_time" content="2021-09-20T22:08:35&#43;08:00" />
 
 <meta itemprop="name" content="SPDZ协议">
-<meta itemprop="description" content="秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，"><meta itemprop="datePublished" content="2021-09-20T22:08:35&#43;08:00" />
+<meta itemprop="description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如"><meta itemprop="datePublished" content="2021-09-20T22:08:35&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-20T22:08:35&#43;08:00" />
-<meta itemprop="wordCount" content="82">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="1147">
+<meta itemprop="keywords" content="SPDZ,秘密共享,MPC,FATE," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SPDZ协议"/>
-<meta name="twitter:description" content="秘密共享 SPDZ SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为Damg˚ard, Pastro, Smart, Zakarias。以SPDZ顺序命名，"/>
+<meta name="twitter:description" content="秘密共享求和（加法运算） 假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x&#43;y&#43;z$，方法如"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -129,23 +129,70 @@
 
       <div class="post-meta">
         <span class="post-time"> 2021-09-20 </span>
-        
+        <div class="post-category">
+            <a href="/categories/mpc/"> MPC </a>
+            </div>
         
       </div>
     </header>
 
     
     <div class="post-content">
-      <h2 id="秘密共享">秘密共享</h2>
+      <h2 id="秘密共享求和加法运算">秘密共享求和（加法运算）</h2>
+<p>假设三个参与方$P_1、P_2、P_3$，各自拥有的值为$x、y、z$，通过秘密分享，计算$S=x+y+z$，方法如下：</p>
+<p>1. $P_1$将其值$x$分拆成三部分$x_1,x_2,x_3$，使得$x_1+x_2+x_3=x$；并将$x_2、x_3$分别发送（或曰“分享”）给$P_2$和$P_3$;<br>
+2. 同理，$P_2$将其值$y$分拆成三部分$y_1,y_2,y_3$，使得$y_1+y_2+y_3=y$；并将$y_1、y_3$分别分享给$P_1$和$P_3$;<br>
+3. 同理，$P_3$将其值$z$分拆成三部分$z_1,z_2,z_3$，使得$z_1+z_2+z_3=z$；并将$z_1、z_2$分别分享给$P_1$和$P_2$;<br></p>
+<p>经过以上三轮所谓“秘密分享”之后，三方的拥有的数值如下：</p>
+<table>
+<thead>
+<tr>
+<th>$P_1$</th>
+<th>$P_2$</th>
+<th>$P_3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_1,y_1,z_1$</td>
+<td>$x_2,y_2,z_2$</td>
+<td>$x_3,y_3,z_3$</td>
+</tr>
+</tbody>
+</table>
+<p>每个原始数值都被分拆成了三部分，除了数值本来的拥有方，其他两方无法知道原始值。例如：除了$P_1$之外，另两方（$P_2$和$P_3$）不知道$x$的值；对$y$和$z$亦同理。</p>
+<p>参与方分别计算$S_i = x_i+y_i+z_i$，然后将此结果再相加，即得$x,y,z$之和：$\sum S_i = (x+y+z)$。</p>
+<h2 id="秘密共享求积乘法运算">秘密共享求积（乘法运算）</h2>
+<p>以上使用的秘密共享方式，可以进行加法运算，但无法进行乘法运算。为了计算乘法，需要进行一些改进。简化起见，假设参与方只有两方$P_1、P_2$，各自拥有$x$和$y$，要计算$x*y$。</p>
+<p>找到一个三元组&lt;$a,b,c$&gt;，满足$a*b=c$，然后将$a$、$b$和$c$也在$P_1$和$P_2$间进行秘密分享，于是$P_1$和$P_2$两方拥有的数值如下：</p>
+<table>
+<thead>
+<tr>
+<th>$P_1$</th>
+<th>$P_2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_1,y_1,a_1,b_1,c_1$</td>
+<td>$x_2,y_2,a_2,b_2,c_2$</td>
+</tr>
+</tbody>
+</table>
+<p>各方先计算出$x-a$和$y-b$（即$P_1$计算$x_1-a_1$，$P_2$计算$x_2-a_2$，再相加），然后$P_1$计算$c_1+(x-a)b_1+(y-b)a_1$，$P_2$计算$c_2+(x-a)b_2+(y-b)a_2 + (x-a)(y-b)$，而这两部分相加，正好就等于$x*y$，因此，即作为$P_1$和$P_2$的秘密共享值。证明很简单，两式相加即可。</p>
+<p>$c_1+(x-a)b_1+(y-b)a_1 + c_2+(x-a)b_2+(y-b)a_2 + (x-a)(y-b) = x*y$</p>
+<p>因此，只要构造出合适三元组&lt;$a,b,c$&gt;，即可实现秘密共享求积。</p>
 <h2 id="spdz">SPDZ</h2>
 <p>SPDZ秘密共享协议，以其发明者（共四人）名字的首字母命名，四人分别为<a href="https://eprint.iacr.org/2011/535.pdf"><strong>D</strong>amg˚ard, <strong>P</strong>astro, <strong>S</strong>mart, <strong>Z</strong>akarias</a>。以SPDZ顺序命名，则是取谐音<a href="https://eprint.iacr.org/2012/642.pdf">Speedz</a>。</p>
+<p>SPDZ协议，就是基于以上求和及求积的基本原理，但是在此基础上增加了一些内容，比如安全性设计：通过使用MAC（消息验证码），可以防止恶意参与方篡改数据或者不遵守协议（至多可以允许$n-1$个恶意参与方）。</p>
+<p>FATE的MPC协议算法包中，提供了SPDZ的实现。</p>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Clustar Engineering Team</span>
+    <span class="item-content">王剑</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -158,7 +205,12 @@
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/spdz/">SPDZ</a>
+          <a href="/tags/%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB/">秘密共享</a>
+          <a href="/tags/mpc/">MPC</a>
+          <a href="/tags/fate/">FATE</a>
+          </div>
       <nav class="post-nav">
         
         <a class="next" href="/post/affine/">
