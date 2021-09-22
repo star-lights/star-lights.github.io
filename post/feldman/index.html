@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Feldman秘密分享">
 <meta itemprop="description" content="加性秘密分享 回顾SPDZ一文中的加法计算问题。问题：$P_1、P_2、P_3$分别拥有$x、y、z$，要计算$Sum=x&#43;y&#43;z$。方法：将"><meta itemprop="datePublished" content="2021-09-22T13:14:47&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-22T13:14:47&#43;08:00" />
-<meta itemprop="wordCount" content="1944">
+<meta itemprop="wordCount" content="1985">
 <meta itemprop="keywords" content="Feldman,Shamir,秘密分享,FATE,MPC," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Feldman秘密分享"/>
 <meta name="twitter:description" content="加性秘密分享 回顾SPDZ一文中的加法计算问题。问题：$P_1、P_2、P_3$分别拥有$x、y、z$，要计算$Sum=x&#43;y&#43;z$。方法：将"/>
@@ -276,6 +276,7 @@ $t(2)=v_1+v_2+v_3+2(a_1+b_1+c_1)+4(a_2+b_2+c_2)$<br>
 $t(3)=v_1+v_2+v_3+3(a_1+b_1+c_1)+9(a_2+b_2+c_2)$<br></p>
 </blockquote>
 <p>可以发现，基于$t(x)$对每个$P_i$进行秘密分享得到的三组分享值，等于上面基于$f(x),g(x)和h(x)$的分享值各自求和的值。说明Shamir秘密分享满足<strong>加性秘密分享</strong>特性。</p>
+<p>从而，可以利用拉格朗日插值法，计算出$Sum= t(0)=v_1+v_2+v_3$。</p>
 <h2 id="feldman-vssverifiable-secret-share">Feldman VSS（Verifiable Secret Share）</h2>
 <p>Shamir秘密共享的方案，基于一个假设：所有的参与者都是诚实的。然而，实际情况是，参与者有可能是不诚实的（恶意的），或者因为非主观因素（如网络传输错误）在交互过程中提供了错误的数据。</p>
 <p>针对这个问题，在Shamir SS的基础上，Feldman VSS(Feldman可验证的秘密分享)提出了解决方案，此方案可抵抗最多$(n-1)/2$(即半数以下)的恶意参与者。</p>
