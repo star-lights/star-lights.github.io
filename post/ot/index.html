@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="王剑" /><meta name="description" content="Oblivious Transfer 不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+<meta name="author" content="王剑" /><meta name="description" content="Oblivious Transfer 不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="不经意传输（OT）" />
-<meta property="og:description" content="Oblivious Transfer 不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，" />
+<meta property="og:description" content="Oblivious Transfer 不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://star-lights.github.io/post/ot/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-22T18:07:42&#43;08:00" />
 <meta property="article:modified_time" content="2021-09-22T18:07:42&#43;08:00" />
 
 <meta itemprop="name" content="不经意传输（OT）">
-<meta itemprop="description" content="Oblivious Transfer 不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，"><meta itemprop="datePublished" content="2021-09-22T18:07:42&#43;08:00" />
+<meta itemprop="description" content="Oblivious Transfer 不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查"><meta itemprop="datePublished" content="2021-09-22T18:07:42&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-22T18:07:42&#43;08:00" />
-<meta itemprop="wordCount" content="923">
+<meta itemprop="wordCount" content="904">
 <meta itemprop="keywords" content="OT,Oblivious Transfer,不经意传输,隐私查询,匿踪查询,FATE,MPC," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="不经意传输（OT）"/>
-<meta name="twitter:description" content="Oblivious Transfer 不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，"/>
+<meta name="twitter:description" content="Oblivious Transfer 不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -139,7 +139,7 @@
     
     <div class="post-content">
       <h2 id="oblivious-transfer">Oblivious Transfer</h2>
-<p>不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查询的是哪一条，即Server方对于Client究竟查了哪一条数据是“茫然的”，或者说Client在“不经意间”就查到了它所期望的数据。</p>
+<p>不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查询的是哪一条，即Server方对于Client究竟查了哪一条数据是“茫然的”，或者说Client在“不经意间”就查到了它所期望的数据。</p>
 <p>要实现这一点，最简单的做法是，Server将它拥有的所有数据全部发送给Client，Client选取自己需要的数据即可。显然，这种方式并不可行，因为虽然Server对Client的查询“茫然”了，但是却将额外的数据暴露给了Client。</p>
 <p>不经意传输协议，则完美地解决这个问题：既保护了Client的查询隐私，又保护了Server端的其他数据。</p>
 <h2 id="协议流程">协议流程</h2>

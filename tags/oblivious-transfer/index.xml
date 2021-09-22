@@ -13,7 +13,7 @@
       <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
       
       <guid>https://star-lights.github.io/post/ot/</guid>
-      <description>Oblivious Transfer 不经意传输（Oblivious Transfer)，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，</description>
+      <description>Oblivious Transfer 不经意传输，又称茫然传输，假设Server方有$n$条数据，Client希望查询其中的第$i$条，但是又不希望Server方知道它具体查</description>
     </item>
     
   </channel>
