@@ -6,13 +6,67 @@
     <description>Recent content in Tags on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 22 Sep 2021 13:14:47 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Sep 2021 18:07:42 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>FATE</title>
       <link>https://star-lights.github.io/tags/fate/</link>
-      <pubDate>Wed, 22 Sep 2021 13:14:47 +0800</pubDate>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
       
       <guid>https://star-lights.github.io/tags/fate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MPC</title>
+      <link>https://star-lights.github.io/tags/mpc/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/mpc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oblivious Transfer</title>
+      <link>https://star-lights.github.io/tags/oblivious-transfer/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/oblivious-transfer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OT</title>
+      <link>https://star-lights.github.io/tags/ot/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/ot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>不经意传输</title>
+      <link>https://star-lights.github.io/tags/%E4%B8%8D%E7%BB%8F%E6%84%8F%E4%BC%A0%E8%BE%93/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E4%B8%8D%E7%BB%8F%E6%84%8F%E4%BC%A0%E8%BE%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>匿踪查询</title>
+      <link>https://star-lights.github.io/tags/%E5%8C%BF%E8%B8%AA%E6%9F%A5%E8%AF%A2/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E5%8C%BF%E8%B8%AA%E6%9F%A5%E8%AF%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>隐私查询</title>
+      <link>https://star-lights.github.io/tags/%E9%9A%90%E7%A7%81%E6%9F%A5%E8%AF%A2/</link>
+      <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E9%9A%90%E7%A7%81%E6%9F%A5%E8%AF%A2/</guid>
       <description></description>
     </item>
     
@@ -22,15 +76,6 @@
       <pubDate>Wed, 22 Sep 2021 13:14:47 +0800</pubDate>
       
       <guid>https://star-lights.github.io/tags/feldman/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MPC</title>
-      <link>https://star-lights.github.io/tags/mpc/</link>
-      <pubDate>Wed, 22 Sep 2021 13:14:47 +0800</pubDate>
-      
-      <guid>https://star-lights.github.io/tags/mpc/</guid>
       <description></description>
     </item>
     
