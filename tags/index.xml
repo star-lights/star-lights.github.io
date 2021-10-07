@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 22 Sep 2021 18:07:42 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Oct 2021 10:59:37 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bloom filter</title>
+      <link>https://star-lights.github.io/tags/bloom-filter/</link>
+      <pubDate>Thu, 07 Oct 2021 10:59:37 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/bloom-filter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hash</title>
+      <link>https://star-lights.github.io/tags/hash/</link>
+      <pubDate>Thu, 07 Oct 2021 10:59:37 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/hash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>布隆过滤器</title>
+      <link>https://star-lights.github.io/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</link>
+      <pubDate>Thu, 07 Oct 2021 10:59:37 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>FATE</title>
       <link>https://star-lights.github.io/tags/fate/</link>

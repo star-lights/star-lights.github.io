@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hash on Starlights</title>
+    <link>https://star-lights.github.io/tags/hash/</link>
+    <description>Recent content in Hash on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Oct 2021 10:59:37 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/hash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>布隆过滤器（Bloom filter）</title>
+      <link>https://star-lights.github.io/post/bloomfilter/</link>
+      <pubDate>Thu, 07 Oct 2021 10:59:37 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/bloomfilter/</guid>
+      <description>什么是布隆过滤器 布隆过滤器的本质就是位图，就是一个很长的二进制向量和一系列随机映射函数。利用这种数据结构，我们可以轻松地发现对应元素是否在集</description>
+    </item>
+    
+  </channel>
+</rss>
