@@ -6,7 +6,97 @@
     <description>Recent content in Tags on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 07 Oct 2021 10:59:37 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Oct 2021 12:01:30 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ElasticSearch</title>
+      <link>https://star-lights.github.io/tags/elasticsearch/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/elasticsearch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ELK</title>
+      <link>https://star-lights.github.io/tags/elk/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/elk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Filebeat</title>
+      <link>https://star-lights.github.io/tags/filebeat/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/filebeat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Grafana</title>
+      <link>https://star-lights.github.io/tags/grafana/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/grafana/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kafka</title>
+      <link>https://star-lights.github.io/tags/kafka/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kibana</title>
+      <link>https://star-lights.github.io/tags/kibana/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/kibana/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Logstash</title>
+      <link>https://star-lights.github.io/tags/logstash/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/logstash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prometheus</title>
+      <link>https://star-lights.github.io/tags/prometheus/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日志系统</title>
+      <link>https://star-lights.github.io/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>监控系统</title>
+      <link>https://star-lights.github.io/tags/%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/tags/%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Bloom filter</title>
       <link>https://star-lights.github.io/tags/bloom-filter/</link>

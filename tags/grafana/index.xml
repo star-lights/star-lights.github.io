@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grafana on Starlights</title>
+    <link>https://star-lights.github.io/tags/grafana/</link>
+    <description>Recent content in Grafana on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 09 Oct 2021 12:01:30 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>日志与监控系统搭建</title>
+      <link>https://star-lights.github.io/post/monitor/</link>
+      <pubDate>Sat, 09 Oct 2021 12:01:30 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/monitor/</guid>
+      <description>1. 监控系统思路及简单实验 1.1 思路 我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。 目前比较流行的监控系统都是基于 prometheus + grafana 搭建的，</description>
+    </item>
+    
+  </channel>
+</rss>

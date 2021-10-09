@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>日志与监控系统搭建 - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="李源" /><meta name="description" content="1. 监控系统思路及简单实验 1.1 思路 我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。 目前比较流行的监控系统都是基于 prometheus &#43; grafana 搭建的，" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/monitor/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="日志与监控系统搭建" />
+<meta property="og:description" content="1. 监控系统思路及简单实验 1.1 思路 我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。 目前比较流行的监控系统都是基于 prometheus &#43; grafana 搭建的，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/monitor/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-09T12:01:30&#43;08:00" />
+<meta property="article:modified_time" content="2021-10-09T12:01:30&#43;08:00" />
+
+<meta itemprop="name" content="日志与监控系统搭建">
+<meta itemprop="description" content="1. 监控系统思路及简单实验 1.1 思路 我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。 目前比较流行的监控系统都是基于 prometheus &#43; grafana 搭建的，"><meta itemprop="datePublished" content="2021-10-09T12:01:30&#43;08:00" />
+<meta itemprop="dateModified" content="2021-10-09T12:01:30&#43;08:00" />
+<meta itemprop="wordCount" content="3190">
+<meta itemprop="keywords" content="日志系统,监控系统,Prometheus,Grafana,Filebeat,Kafka,Logstash,ElasticSearch,Kibana,ELK," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="日志与监控系统搭建"/>
+<meta name="twitter:description" content="1. 监控系统思路及简单实验 1.1 思路 我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。 目前比较流行的监控系统都是基于 prometheus &#43; grafana 搭建的，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">日志与监控系统搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-09 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/"> 运维开发 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="1-监控系统思路及简单实验">1. 监控系统思路及简单实验</h2>
+<h3 id="11-思路">1.1 思路</h3>
+<p>我们的目标系统监控集成到自己的项目中，通过了解总结了下面这些思路。</p>
+<p>目前比较流行的监控系统都是基于 prometheus + grafana 搭建的，prometheus 负责从各个被监控的目标拉取信息并存储到它内置的时序数据库中，并且提供一种使用特定语法的查询接口，grafana 负责从prometheus拉取数据做图形化展示。</p>
+<p>上面描述流程对应下图中的部分，左下角jobs exporters 表示各个中间件、主机、程序主动暴露出来的端点，这些端点提供给prometheus用来拉取应用的最新状态信息；中间prometheus server 部分表示它提供数据存储及向外暴露查询的功能；右下角是数据展示相关，图中 prometheus web UI 表示它内置的图形化界面，使用这种展示方式需要熟悉PromQL 语法来查询prometheus 中的数据，并且它对数据的展示不直观漂亮，使用 grafana 展示数据虽然也需要通过复杂的json配置文件来指定页面要怎么显示数据，但是不需要了解PromQL 语法而且很多配置文件都是可以找到现成的资源。</p>
+<p>这两种方式都不能满足我们将监控集成到自己项目中的需求，通过前面的了解实际上我们要做的就是开发一个简介版的grafana，利用prometheus向外暴露数据的结果做一个图形化展示。</p>
+<p><img src="/images/prometheus.png" alt="Prometheus architecture"></p>
+<h3 id="12-简单实验">1.2 简单实验</h3>
+<p>实验环境总体目录结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+├── docker-compose.yml
+├── grafana
+│   ├── config
+│   │   └── grafana.ini
+│   ├── config.monitoring
+│   └── provisioning
+│       └── datasources
+│           └── datasource.yml
+├── prometheus
+│   └── prometheus.yml
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="121-前置准备">1.2.1 前置准备</h4>
+<p>使用docker 进行化境搭建，以下是docker-compose.yml 文件内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus:v2.4.3</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">./prometheus/:/etc/prometheus/</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/etc/localtime:/etc/localtime:ro</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s1">&#39;9090:9090&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">grafane</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/grafana:5.2.4</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;grafana&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s1">&#39;3000:3000&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">./grafana/config/grafana.ini:/etc/grafana/grafana.ini</span><span class="w">
+</span><span class="w">    </span>- <span class="l">./grafana/provisioning/:/etc/grafana/provisioning/</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/etc/localtime:/etc/localtime:ro</span><span class="w">
+</span><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">./grafana/config.monitoring</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">promethemus</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>准备一个Java 项目用来模拟 被promethemus监控的应用</p>
+<p>添加如下依赖及配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>io.micrometer<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>micrometer-registry-prometheus<span class="nt">&lt;/artifactId&gt;</span>
+		<span class="nt">&lt;version&gt;</span>1.7.4<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-application</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">exposure</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> 
+</span><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> 
+</span><span class="w">      </span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l">${spring.application.name}</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>配置完这些，访问本地http://localhost:8080/actuator/prometheus 可得到大概如下信息，从图中可以看出我们通过添加maven依赖完成了监控这个Java项目并向外暴露了一个端点，用来展示当前Java 项目的状态。如果我们只是监控Java 程序就可以不使用prometheus，直接分析下面这个文件就可以得到一些结果，比如图中箭头指出的线程、jvm内存相关的信息。</p>
+<p>![image-20211008155527971](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211008155527971.png)</p>
+<p>监控其他应用也是相同的做法，比如监控mysql、redis这种我们需要安装mysql-exporter 或 redis-exporter , 监控主机 需要安装node-exporter 等，这些exporter 的就像是上面再Java 项目中引入的依赖一样，他们的作用就是收集当前被监控应用的各项数据，并整理成prometheus认识的格式，同时也向外暴露了一个端点以提供prometheus获取它收集到的这些数据。</p>
+<p>环境搭建好之后开始实验，步骤如下</p>
+<h4 id="122-配置promethemus-监控那些端点">1.2.2 配置promethemus 监控那些端点</h4>
+<p>通过配置promethemus.yml 文件中的定时任务来规定抓取那些应用的信息，以及抓取信息间隔、抓取地址等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">global</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w"> </span><span class="c"># 全局定时任务抓取性能数据间隔</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w"> </span><span class="c"># 抓取性能数据任务配置</span><span class="w">
+</span><span class="w"></span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w"> </span><span class="c"># 第一个job promethemus 用来监控自己</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9090&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w"></span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;springboot-demo&#39;</span><span class="w"> </span><span class="c"># 第一个job 这里配置了上面我们启动的Java 项目</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">  </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/actuator/prometheus&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;192.168.20.190:8080&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;springboot-demo-label&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>整体搭建完后访问 http://localhost:9090/targets 可以看到我们配置的两个监控都是正常状态，这里先看个效果。</p>
+<p>![image-20211008161748715](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211008161748715.png)</p>
+<p>使用 prometheus 自带的web ui , 查询应用的某项数据，结果显示如下，可以看到prometheus 自带的web ui 使用过http 结果来从prometheus server 获取数据，这一点就是我们二次开发的切入点。</p>
+<p>![image-20211008162111574](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211008162111574.png)</p>
+<p>关于prometheus 对外的接口，可以参考官网，下图是中调用的结果和上图中是相同的。</p>
+<p>所以二次开发前端可以直接调用这个接口来获取prometheus 中收集到的数据，关键在于query、time 两个参数的参数的传递，以及对prometheus返回的json 进行必要信息的提取。</p>
+<blockquote>
+<p><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">https://prometheus.io/docs/prometheus/latest/querying/basics/</a></p>
+</blockquote>
+<p>![image-20211008171428310](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211008171428310.png)</p>
+<p>下面是grafana 相关，由于我们是去grafana 开发，所以这部分和二次开发无关。</p>
+<h4 id="123-grafana-相关配置文件">1.2.3 grafana 相关配置文件</h4>
+<p>config.monitoring 配置</p>
+<p>第一行表示grafana 管理登录密码</p>
+<p>第二行表示是否允许注册</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">GF_SECURITY_ADMIN_PASSWORD=password
+GF_USERS_ALLOW_SIGN_UP=false
+</code></pre></td></tr></table>
+</div>
+</div><p>如果需要消息报警可进行以下配置</p>
+<p>grafana.ini 配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="k">[smtp]</span>
+<span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">smtp.163.com</span>
+<span class="na">user</span> <span class="o">=</span> <span class="s">xxx@163.com</span>
+<span class="na">password</span> <span class="o">=</span> <span class="s">邮箱授权码或者其他形式</span>
+<span class="na">from_address</span> <span class="o">=</span> <span class="s">xxx@clustar.ai</span>
+<span class="na">from_name</span> <span class="o">=</span> <span class="s">liyuan</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="124-grafana-数据源配置">1.2.4 grafana 数据源配置</h4>
+<p>这里我们配置的数据源是从 prometheus 拉取数据用于展示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">deleteDatasources</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Prometheus</span><span class="w">
+</span><span class="w">  </span><span class="nt">orgId</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">datasources</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Prometheus</span><span class="w">
+</span><span class="w">  </span><span class="nt">orgId</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">datasources</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Prometheus</span><span class="w">
+</span><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span><span class="w">  </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
+</span><span class="w">  </span><span class="nt">orgId</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://prometheus:9090</span><span class="w">
+</span><span class="w">  </span><span class="nt">basicAuth</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">isDefault</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="nt">editable</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="125-在grafana-界面上导入显示配置文件">1.2.5 在grafana 界面上导入显示配置文件</h4>
+<p>找一个合适的配置文件，或者自己编写。</p>
+<p>现成的配置文件资源：</p>
+<blockquote>
+<p><a href="https://github.com/asheniam/azure-grafana-dashboard-templates">https://github.com/asheniam/azure-grafana-dashboard-templates</a></p>
+</blockquote>
+<p>grafana 配置文件语法：</p>
+<blockquote>
+<p><a href="https://grafana.com/docs/grafana/latest/dashboards/json-model/">https://grafana.com/docs/grafana/latest/dashboards/json-model/</a></p>
+</blockquote>
+<p>将配置文件导入到grafana 中</p>
+<p>![image-20211008173734747](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211008173734747.png)</p>
+<p>之后就可以查看监控效果，右上角可以选择时间范围等信息</p>
+<p>![image-20210928143045649](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20210928143045649.png)</p>
+<h3 id="13-其他">1.3 其他</h3>
+<p>监控主机状态，如CPU、内存等信息可以参考。</p>
+<blockquote>
+<p><a href="https://prometheus.io/docs/guides/node-exporter/">https://prometheus.io/docs/guides/node-exporter/</a></p>
+</blockquote>
+<p>思路和上面基本一样：</p>
+<ol>
+<li>搭建exporter 用来收集不同应用的数据给prometheus, exporter 相当于一个适配器的角色。</li>
+<li>prometheus.yml 中配置exporter 暴露出的端点，将exporter 收集的数据存入时许数据库中。</li>
+<li>展示端通过接口获取prometheus 中的数据。</li>
+</ol>
+<p>prometheus 在这个体系中相当于数据库和统一接口提供者的角色。</p>
+<h2 id="2-日志系统思路及简单实验">2 日志系统思路及简单实验</h2>
+<h3 id="21-思路">2.1 思路</h3>
+<p>日志系统的搭建思路几乎和监控系统的思路一样，filebeat 或者 logstash 用来收集日志数据，elasticsearch 用来存储数据和提供数据查询接口。这里由于需要将日志显示集成到自己的项目中，所以放弃使用kibana展示数据，直接调用elasticsearch 获取数据发送给展示端。</p>
+<p>这里的中间件可以使用 filebeat + Kafka + logstash + elasticsearch + 前端展示，也可以精简为filebeat + elasticsearch + 前端展示，需要根据日志量来考虑使用那种方式。</p>
+<h3 id="22-简单实验">2.2 简单实验</h3>
+<p>Docker hub 没找到合适的filebeat（filebeat没有提供linux/arm64/v8版本的镜像，在其他Linux 服务器上部署可以选择合适的镜像）, 实验搭建的是logstash + elasticsearch + kibana 。</p>
+<h4 id="221-前置准备">2.2.1 前置准备</h4>
+<p>模拟一个在打印日志的数据Java 应用</p>
+<p>加依赖，版本根据实际情况指定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>net.logstash.logback<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>logstash-logback-encoder<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>5.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>ch.qos.logback<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>logback-classic<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>日志文件存储地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">logging</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/Users/oraliyuan/docker-elastic/log</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>logback日志格式文件，主要下面这两段，其他根据实际情况。<strong>这里配置的是应用直接将日志输出到logstash, 如果使用filebeat 这段可以省略，只要保证日志到磁盘就可以了。</strong> 下面appender可以配置多种输出，比如输出到本地文件、Kafka等。具体输出可参考官网关于appender 的配置</p>
+<blockquote>
+<p><a href="http://logback.qos.ch/manual/appenders.html">http://logback.qos.ch/manual/appenders.html</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration&gt;</span>
+<span class="nt">&lt;configuration</span> <span class="na">scan=</span><span class="s">&#34;false&#34;</span><span class="nt">&gt;</span>
+    
+    <span class="c">&lt;!-- 输出到logstash的appender --&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;LOGSTASH&#34;</span> <span class="na">class=</span><span class="s">&#34;net.logstash.logback.appender.LogstashTcpSocketAppender&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;destination&gt;</span>127.0.0.1:4560<span class="nt">&lt;/destination&gt;</span>
+        <span class="nt">&lt;encoder</span> <span class="na">charset=</span><span class="s">&#34;UTF-8&#34;</span> <span class="na">class=</span><span class="s">&#34;net.logstash.logback.encoder.LogstashEncoder&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+
+    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&#34;info&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;CONSOLE&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;INFO_FILE&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&#34;LOGSTASH&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/root&gt;</span>
+
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>模拟应用不停的输出日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@EnableScheduling</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogOutput</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">LogOutput</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">&#34;0/5 * * * * ?&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">infoTasks</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;普通日志: &#34;</span> <span class="o">+</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">&#34;0/15 * * * * ?&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">errorTasks</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;错误日志: &#34;</span> <span class="o">+</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="222-环境搭建">2.2.2 环境搭建</h4>
+<p>搭建目录如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+├── docker-compose.yml
+├── es
+│   └── data
+├── filebeat
+│   └── filebeat.yml
+├── log
+└── logstash
+    └── logstash-springboot.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>ELK 版本选择 7.13.1 是因为这个版本支持提供了 linux/arm64/v8 的镜像，以下是docker-compose.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch:7.13.1</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">elastcisearch</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;cluster.name=elasticsearch&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;discovery.type=single-node&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;ES_JAVA_OPTS=-Xms512m -Xmx512m&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/Users/oraliyuan/docker-elastic/es/data:/usr/share/elasticsearch/data</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">9200</span><span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="w">      </span>- <span class="m">9300</span><span class="p">:</span><span class="m">9300</span><span class="w">
+</span><span class="w">  </span><span class="nt">kibana</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">kibana:7.13.1</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span><span class="w">    </span><span class="nt">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">elasticsearch:es</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">elasticsearch</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s1">&#39;elasticsearch.hosts=http://es:9200&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">5601</span><span class="p">:</span><span class="m">5601</span><span class="w">
+</span><span class="w">  </span><span class="nt">logstash</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">logstash:7.13.1</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/Users/oraliyuan/docker-elastic/logstash/logstash-springboot.conf:/usr/share/logstash/pipeline/logstash.conf</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">elasticsearch</span><span class="w">
+</span><span class="w">    </span><span class="nt">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">elasticsearch:es</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">4560</span><span class="p">:</span><span class="m">4560</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="223-logstash-输入输出配置">2.2.3 logstash 输入输出配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">input</span> <span class="p">{</span>
+  <span class="err">tcp</span> <span class="err">{</span>
+    <span class="err">mode</span> <span class="err">=&gt;</span> <span class="nt">&#34;server&#34;</span>
+    <span class="err">host</span> <span class="err">=&gt;</span> <span class="s2">&#34;0.0.0.0&#34;</span>
+    <span class="err">port</span> <span class="err">=&gt;</span> <span class="mi">4560</span>
+    <span class="err">codec</span> <span class="err">=&gt;</span> <span class="err">json_lines</span>
+  <span class="p">}</span>
+<span class="err">}</span>
+<span class="err">output</span> <span class="p">{</span>
+  <span class="err">elasticsearch</span> <span class="err">{</span>
+    <span class="err">hosts</span> <span class="err">=&gt;</span> <span class="nt">&#34;es:9200&#34;</span>
+    <span class="err">index</span> <span class="err">=&gt;</span> <span class="s2">&#34;springboot-logstash-%{+YYYY.MM.dd}&#34;</span>
+  <span class="p">}</span>
+<span class="err">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="224-验证可行性">2.2.4 验证可行性</h4>
+<p>在kibana 中建立index 并搜索 关键字</p>
+<p>![image-20211009103450749](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211009103450749.png)</p>
+<p>在浏览器控制可以发现kibana 发起了对应的请求</p>
+<p>![image-20211009103558029](/Users/oraliyuan/Library/Application Support/typora-user-images/image-20211009103558029.png)</p>
+<p>Elasticsearch 提供的rest api</p>
+<blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest.html</a></p>
+</blockquote>
+<h3 id="23-其他">2.3 其他</h3>
+<p>filebeat.yaml 配置，filebeat 这部分没有实际测试过 🐶🐶🐶</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">filebeat.prospectors</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/logs/*.log</span><span class="w"> </span><span class="c"># 日志所在的位置</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">李源</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-09
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">日志系统</a>
+          <a href="/tags/%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/">监控系统</a>
+          <a href="/tags/prometheus/">Prometheus</a>
+          <a href="/tags/grafana/">Grafana</a>
+          <a href="/tags/filebeat/">Filebeat</a>
+          <a href="/tags/kafka/">Kafka</a>
+          <a href="/tags/logstash/">Logstash</a>
+          <a href="/tags/elasticsearch/">ElasticSearch</a>
+          <a href="/tags/kibana/">Kibana</a>
+          <a href="/tags/elk/">ELK</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/bloomfilter/">
+            <span class="next-text nav-default">布隆过滤器（Bloom filter）</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
