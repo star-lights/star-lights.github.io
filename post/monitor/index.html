@@ -290,7 +290,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p>配置完这些，访问本地http://localhost:8080/actuator/prometheus 可得到大概如下信息，从图中可以看出我们通过添加maven依赖完成了监控这个Java项目并向外暴露了一个端点，用来展示当前Java 项目的状态。如果我们只是监控Java 程序就可以不使用prometheus，直接分析下面这个文件就可以得到一些结果，比如图中箭头指出的线程、jvm内存相关的信息。</p>
-<p><img src="/images/monitor1.png" alt="image-20211008155527971"></p>
+<p><img src="/images/monitor1.jpeg" alt="image-20211008155527971"></p>
 <p>监控其他应用也是相同的做法，比如监控mysql、redis这种我们需要安装mysql-exporter 或 redis-exporter , 监控主机 需要安装node-exporter 等，这些exporter 的就像是上面再Java 项目中引入的依赖一样，他们的作用就是收集当前被监控应用的各项数据，并整理成prometheus认识的格式，同时也向外暴露了一个端点以提供prometheus获取它收集到的这些数据。</p>
 <p>环境搭建好之后开始实验，步骤如下</p>
 <h4 id="122-配置promethemus-监控那些端点">1.2.2 配置promethemus 监控那些端点</h4>
@@ -332,9 +332,9 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p>整体搭建完后访问 http://localhost:9090/targets 可以看到我们配置的两个监控都是正常状态，这里先看个效果。</p>
-<p><img src="/images/monitor2.png" alt="image-20211008161748715"></p>
+<p><img src="/images/monitor2.jpeg" alt="image-20211008161748715"></p>
 <p>使用 prometheus 自带的web ui , 查询应用的某项数据，结果显示如下，可以看到prometheus 自带的web ui 使用过http 结果来从prometheus server 获取数据，这一点就是我们二次开发的切入点。</p>
-<p><img src="/images/monitor3.png" alt="image-20211008162111574"></p>
+<p><img src="/images/monitor3.jpeg" alt="image-20211008162111574"></p>
 <p>关于prometheus 对外的接口，可以参考官网，下图是中调用的结果和上图中是相同的。</p>
 <p>所以二次开发前端可以直接调用这个接口来获取prometheus 中收集到的数据，关键在于query、time 两个参数的参数的传递，以及对prometheus返回的json 进行必要信息的提取。</p>
 <blockquote>
@@ -437,9 +437,9 @@ GF_USERS_ALLOW_SIGN_UP=false
 <p><a href="https://grafana.com/docs/grafana/latest/dashboards/json-model/">https://grafana.com/docs/grafana/latest/dashboards/json-model/</a></p>
 </blockquote>
 <p>将配置文件导入到grafana 中</p>
-<p><img src="/images/monitor5.png" alt="image-20211008173734747"></p>
+<p><img src="/images/monitor5.jpeg" alt="image-20211008173734747"></p>
 <p>之后就可以查看监控效果，右上角可以选择时间范围等信息</p>
-<p><img src="/images/monitor6.png" alt="image-20210928143045649"></p>
+<p><img src="/images/monitor6.jpeg" alt="image-20210928143045649"></p>
 <h3 id="13-其他">1.3 其他</h3>
 <p>监控主机状态，如CPU、内存等信息可以参考。</p>
 <blockquote>
@@ -727,9 +727,9 @@ GF_USERS_ALLOW_SIGN_UP=false
 </div>
 </div><h4 id="224-验证可行性">2.2.4 验证可行性</h4>
 <p>在kibana 中建立index 并搜索 关键字</p>
-<p><img src="/images/monitor7.png" alt="image-20211009103450749"></p>
+<p><img src="/images/monitor7.jpeg" alt="image-20211009103450749"></p>
 <p>在浏览器控制可以发现kibana 发起了对应的请求</p>
-<p><img src="/images/monitor8.png" alt="image-20211009103558029"></p>
+<p><img src="/images/monitor8.jpeg" alt="image-20211009103558029"></p>
 <p>Elasticsearch 提供的rest api</p>
 <blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest.html</a></p>
