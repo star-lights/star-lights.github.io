@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 09 Oct 2021 12:01:30 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Oct 2021 16:31:39 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>加密算法</title>
+      <link>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 14 Oct 2021 16:31:39 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>运维开发</title>
       <link>https://star-lights.github.io/categories/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/</link>
@@ -31,15 +40,6 @@
       <pubDate>Wed, 22 Sep 2021 18:07:42 +0800</pubDate>
       
       <guid>https://star-lights.github.io/categories/mpc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>加密算法</title>
-      <link>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Mon, 20 Sep 2021 20:25:01 +0800</pubDate>
-      
-      <guid>https://star-lights.github.io/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     

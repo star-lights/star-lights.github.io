@@ -6,7 +6,16 @@
     <description>Recent content on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 09 Oct 2021 12:01:30 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Oct 2021 16:31:39 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于RSA的PSI协议</title>
+      <link>https://star-lights.github.io/post/psi/</link>
+      <pubDate>Thu, 14 Oct 2021 16:31:39 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/psi/</guid>
+      <description>协议流程图 FATE中的隐私求交（PSI）基于RSA技术，协议流程如下图所示。 Client方持有的ID集合记为$X_A$：{$u_1,u_2,</description>
+    </item>
+    
     <item>
       <title>日志与监控系统搭建</title>
       <link>https://star-lights.github.io/post/monitor/</link>
