@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>基于Executor的排队策略 - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="李陈哲" /><meta name="description" content="1、问题 ​ 最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/executor/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="基于Executor的排队策略" />
+<meta property="og:description" content="1、问题 ​ 最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/executor/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-23T21:49:34&#43;08:00" />
+<meta property="article:modified_time" content="2021-10-23T21:49:34&#43;08:00" />
+
+<meta itemprop="name" content="基于Executor的排队策略">
+<meta itemprop="description" content="1、问题 ​ 最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且"><meta itemprop="datePublished" content="2021-10-23T21:49:34&#43;08:00" />
+<meta itemprop="dateModified" content="2021-10-23T21:49:34&#43;08:00" />
+<meta itemprop="wordCount" content="724">
+<meta itemprop="keywords" content="ThreadPool,Executor," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基于Executor的排队策略"/>
+<meta name="twitter:description" content="1、问题 ​ 最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">基于Executor的排队策略</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-23 </span>
+        <div class="post-category">
+            <a href="/categories/java%E5%BC%80%E5%8F%91/"> Java开发 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="1问题">1、问题</h2>
+<p>​	最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且每次只处理n个请求，因此需要A的请求进行排队，类似生产者消费者模式：业务系统A生产，业务系统B消费。</p>
+<p><img src="/images/executor1.png" alt="Executor1"></p>
+<h2 id="2解决方案">2、解决方案</h2>
+<p>​	解决方案有很多，比如传统的wait/notify和lock-condition、阻塞队列、信号量等，当前业务中最简便的是使用线程池，我们来看下线程池的参数：</p>
+<p><img src="/images/executor2.png" alt="Executor2"></p>
+<p>​	可见线程池中使用了一个BlockingQueue来存储还没来得及执行的任务，我们只需要不断的提交请求，多余的排队请求会自动进入队列，等待有线程空闲的时候取出执行，很符合我们当前的业务需要。</p>
+<p>​	这里我们直接使用线程池的Executor框架的newFixedThreadPool，帮助我们管理线程，效率较好，还可以避免this逃逸，但相对的要注意允许请求的队列长度为 Integer.MAX_VALUE，可能堆积大量的请求，从而导致 OOM。</p>
+<h2 id="3代码">3、代码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadTest</span> <span class="o">{</span>
+
+    <span class="c1">//当前任务
+</span><span class="c1"></span>    <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">AtomicInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicInteger</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+    <span class="c1">//只允许同时执行2个任务
+</span><span class="c1"></span>    <span class="kd">static</span> <span class="n">ExecutorService</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//假设有3个任务
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">3</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">executorHandle</span><span class="o">();</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">executorHandle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">i</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="na">intValue</span><span class="o">();</span>
+        <span class="n">pool</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">5</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">()</span> <span class="o">+</span><span class="s">&#34;  当前第&#34;</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="s">&#34;个任务  第&#34;</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="s">&#34;次&#34;</span><span class="o">);</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="c1">//模拟不同的任务执行时间不同
+</span><span class="c1"></span>                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">l</span> <span class="o">*</span> <span class="n">1000</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	执行结果：</p>
+<p><img src="/images/executor3.png" alt="Executor3"></p>
+<p>​	我们可以看到，总共有3个任务，同时开始了2个任务，第1个任务结束后，直接又开始了第3个任务，产生了排队的效果，符合我们的业务需要。</p>
+<p>​	如有错误或不当请指正，期望共同进步。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">李陈哲</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/threadpool/">ThreadPool</a>
+          <a href="/tags/executor/">Executor</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/psi/">
+            <span class="next-text nav-default">基于RSA的PSI协议</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

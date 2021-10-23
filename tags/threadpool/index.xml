@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ThreadPool on Starlights</title>
+    <link>https://star-lights.github.io/tags/threadpool/</link>
+    <description>Recent content in ThreadPool on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 23 Oct 2021 21:49:34 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/threadpool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于Executor的排队策略</title>
+      <link>https://star-lights.github.io/post/executor/</link>
+      <pubDate>Sat, 23 Oct 2021 21:49:34 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/executor/</guid>
+      <description>1、问题 ​ 最近在开发过程中遇到一个问题：两个业务系统需要业务交流，业务系统A需要多次请求业务系统B进行数据处理，B的数据处理耗费较长时间，且</description>
+    </item>
+    
+  </channel>
+</rss>
