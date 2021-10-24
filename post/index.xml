@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 23 Oct 2021 21:49:34 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Oct 2021 18:26:40 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>图形可视化-G6</title>
+      <link>https://star-lights.github.io/post/g6/</link>
+      <pubDate>Sun, 24 Oct 2021 18:26:40 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/g6/</guid>
+      <description>G6是什么? 下面各个维度解释下G6 G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简</description>
+    </item>
+    
     <item>
       <title>基于Executor的排队策略</title>
       <link>https://star-lights.github.io/post/executor/</link>

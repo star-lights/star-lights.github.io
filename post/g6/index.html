@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>图形可视化-G6 - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="胡广" /><meta name="description" content="G6是什么? 下面各个维度解释下G6 G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/g6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="图形可视化-G6" />
+<meta property="og:description" content="G6是什么? 下面各个维度解释下G6 G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/g6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-24T18:26:40&#43;08:00" />
+<meta property="article:modified_time" content="2021-10-24T18:26:40&#43;08:00" />
+
+<meta itemprop="name" content="图形可视化-G6">
+<meta itemprop="description" content="G6是什么? 下面各个维度解释下G6 G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简"><meta itemprop="datePublished" content="2021-10-24T18:26:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-10-24T18:26:40&#43;08:00" />
+<meta itemprop="wordCount" content="1220">
+<meta itemprop="keywords" content="G6,可视化,Javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图形可视化-G6"/>
+<meta name="twitter:description" content="G6是什么? 下面各个维度解释下G6 G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">图形可视化-G6</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-24 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"> 前端开发 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="g6是什么">G6是什么?</h2>
+<p>下面各个维度解释下G6
+G6 是一个图可视化引擎。它提供了图的绘制、布局、分析、交互、动画等图可视化的基础能力。旨在让关系变得透明，简单。让用户获得关系数据的 Insight。
+G6 是 antv 体系的一个图可视化品牌，主要关注关系图的绘制，antv 还有其他应用，比如关注图表的 G2、F2，关注地理数据渲染的 L7 等
+G6 是一个开源的 JavaScript 图形库，可以支持 PC、移动端、小程序多个平台。更多G6使用示例参考<a href="https://www.yuque.com/antv/g6/fvuhbz">图可视化引擎 G6</a></p>
+<h2 id="g6的上下游">G6的上下游</h2>
+<p>G6 依赖渲染引擎 G 提供渲染能力，G 是一款Antv体系开源的支持 canvas、svg 渲染，跨 PC、mobile 平台的强大渲染引擎。 Graphin是基于 G6 的 React 库，通过接入 React 生态，使用起来更加简单。</p>
+<h2 id="g6的设计框架图">G6的设计框架图</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/244306/1590245501631-1e9940da-74a5-481a-8b76-99da4d2aaf6c.png" alt="G64.0设计框架图"></p>
+<h2 id="g6功能特性">G6功能特性</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/244306/1590496606271-67f10a58-9051-43db-8b4c-e0e1188f47c7.png?x-oss-process=image%2Fresize%2Cw_1504%2Climit_0" alt="G6功能特性"></p>
+<h2 id="g6工程结构">G6工程结构</h2>
+<p>G6 是一个多项目共存的库，使用monorepo的思想来管理项目。monorepo不做过多介绍。思路就是把相关联的项目都放在一个仓库里管理，包括开发、构建、发布等。我自己经验来看，这种模式确实在同时多个项目开发时有优势，免去管理、link 多个项目的麻烦。不过上手阶段我经常会有疑惑，不能确认问题出在哪个项目，要整体build，苦笑，应该是我太菜。G6 使用 lerna 来管理所有的子项目，目录结构和简介如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">G6</span>
+<span class="err">｜</span><span class="o">-</span><span class="nx">packages</span>
+  <span class="err">｜</span><span class="o">--</span><span class="nx">core</span> <span class="c1">// G6核心库，实现了大部分功能，主流程、动画、交互、状态管理
+</span><span class="c1"></span>  <span class="err">｜</span><span class="o">--</span><span class="nx">pc</span> <span class="c1">// 扩展core，提供更多的交互，pc的事件等
+</span><span class="c1"></span>  <span class="err">｜</span><span class="o">--</span><span class="nx">mobile</span> <span class="c1">// 扩展core，提供mobile、小程序平台的支持，移动端事件支持等
+</span><span class="c1"></span>  <span class="err">｜</span><span class="o">--</span><span class="nx">element</span> <span class="c1">// 提供预制的自定义图元素（节点、边、combo）
+</span><span class="c1"></span>  <span class="err">｜</span><span class="o">--</span><span class="nx">plugin</span> <span class="c1">// 插件，比如[鱼眼效果](https://g6.antv.vision/zh/examples/tool/fisheye#fisheye)
+</span><span class="c1"></span>  <span class="err">｜</span><span class="o">--</span><span class="p">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="g6-使用示例">G6 使用示例</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">nodes</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s2">&#34;node1&#34;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;Circle1&#34;</span><span class="p">,</span>
+      <span class="nx">x</span><span class="o">:</span> <span class="mi">150</span><span class="p">,</span>
+      <span class="nx">y</span><span class="o">:</span> <span class="mi">150</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s2">&#34;node2&#34;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s2">&#34;Circle2&#34;</span><span class="p">,</span>
+      <span class="nx">x</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>
+      <span class="nx">y</span><span class="o">:</span> <span class="mi">150</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nx">edges</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">source</span><span class="o">:</span> <span class="s2">&#34;node1&#34;</span><span class="p">,</span>
+      <span class="nx">target</span><span class="o">:</span> <span class="s2">&#34;node2&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">G6</span><span class="p">.</span><span class="nx">Graph</span><span class="p">({</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="s2">&#34;container&#34;</span><span class="p">,</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="nx">graph</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从例子中可以看出:</p>
+<ul>
+<li>使用流程：就是准备数据和配置，创建Graph实例，传入数据，然后render</li>
+<li>数据结构：G6使用节点和边两个类型描述整个图，节点就是图的节点，边描述节点之间的关系。节点：边是1:n的关系</li>
+</ul>
+<h2 id="graph实例">graph实例</h2>
+<p>创建graph实例后，同时会初始化以下单例，管理不同的功能：</p>
+<ul>
+<li>
+<p>graph.cfg.canvas</p>
+<p>G 对应的 Canvas 类实例，调控整个渲染流程，通过该单例与 G 对接起来</p>
+</li>
+<li>
+<p>graph.cfg.itemController</p>
+<p>管理 Item 实例，Item 是 G6 包装的节点类，输入的边和节点数据会组织成 item 实例数组。这个模块打通从数据到最终渲染的整个流程，下面的章节会着重分析这个模块相关的部分</p>
+</li>
+<li>
+<p>graph.cfg.layoutController</p>
+<p>控制布局相关逻辑，布局算法比较复杂，G6 拆出了一个 npm 包（@antv/layout）专门放布局相关算法</p>
+</li>
+<li>
+<p>graph.cfg.modeController</p>
+<p>控制交互，管理 behavior</p>
+</li>
+<li>
+<p>ShapeFactory</p>
+<p>图元素的工厂函数，管理（crud、函数调用）定义的节点、边、combo</p>
+</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>经过这段时间G6的梳理，对G6也有了更多的了解，最后感谢阅读</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">胡广</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/g6/">G6</a>
+          <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a>
+          <a href="/tags/javascript/">Javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/executor/">
+            <span class="next-text nav-default">基于Executor的排队策略</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

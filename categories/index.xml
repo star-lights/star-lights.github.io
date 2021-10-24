@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 23 Oct 2021 21:49:34 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Oct 2021 18:26:40 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前端开发</title>
+      <link>https://star-lights.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Sun, 24 Oct 2021 18:26:40 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Java开发</title>
       <link>https://star-lights.github.io/categories/java%E5%BC%80%E5%8F%91/</link>
