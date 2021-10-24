@@ -146,9 +146,9 @@ G6 是一个开源的 JavaScript 图形库，可以支持 PC、移动端、小�
 <h2 id="g6的上下游">G6的上下游</h2>
 <p>G6 依赖渲染引擎 G 提供渲染能力，G 是一款Antv体系开源的支持 canvas、svg 渲染，跨 PC、mobile 平台的强大渲染引擎。 Graphin是基于 G6 的 React 库，通过接入 React 生态，使用起来更加简单。</p>
 <h2 id="g6的设计框架图">G6的设计框架图</h2>
-<p><img src="https://cdn.nlark.com/yuque/0/2020/png/244306/1590245501631-1e9940da-74a5-481a-8b76-99da4d2aaf6c.png" alt="G64.0设计框架图"></p>
+<p><img src="/images/g61.png" alt="G64.0设计框架图"></p>
 <h2 id="g6功能特性">G6功能特性</h2>
-<p><img src="https://cdn.nlark.com/yuque/0/2020/png/244306/1590496606271-67f10a58-9051-43db-8b4c-e0e1188f47c7.png?x-oss-process=image%2Fresize%2Cw_1504%2Climit_0" alt="G6功能特性"></p>
+<p><img src="/images/g62.png" alt="G6功能特性"></p>
 <h2 id="g6工程结构">G6工程结构</h2>
 <p>G6 是一个多项目共存的库，使用monorepo的思想来管理项目。monorepo不做过多介绍。思路就是把相关联的项目都放在一个仓库里管理，包括开发、构建、发布等。我自己经验来看，这种模式确实在同时多个项目开发时有优势，免去管理、link 多个项目的麻烦。不过上手阶段我经常会有疑惑，不能确认问题出在哪个项目，要整体build，苦笑，应该是我太菜。G6 使用 lerna 来管理所有的子项目，目录结构和简介如下</p>
 <div class="highlight"><div class="chroma">
