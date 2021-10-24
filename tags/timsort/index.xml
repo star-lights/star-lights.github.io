@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TimSort on Starlights</title>
+    <link>https://star-lights.github.io/tags/timsort/</link>
+    <description>Recent content in TimSort on Starlights</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 24 Oct 2021 18:36:52 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/tags/timsort/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python中sorted使用的排序算法</title>
+      <link>https://star-lights.github.io/post/timsort/</link>
+      <pubDate>Sun, 24 Oct 2021 18:36:52 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/timsort/</guid>
+      <description>我们知道一些基础的排序算法，如冒泡排序，插入排序，选择排序，还有快速排序，归并排序，以及桶排序，计数排序等。今天我将向大家介绍Python中</description>
+    </item>
+    
+  </channel>
+</rss>
