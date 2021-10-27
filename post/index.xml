@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Starlights</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 24 Oct 2021 18:36:52 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Oct 2021 14:01:55 +0800</lastBuildDate><atom:link href="https://star-lights.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>“托拉拽”bug修复经验小结</title>
+      <link>https://star-lights.github.io/post/drag-n-drop/</link>
+      <pubDate>Wed, 27 Oct 2021 14:01:55 +0800</pubDate>
+      
+      <guid>https://star-lights.github.io/post/drag-n-drop/</guid>
+      <description>1.表单数据已更新，视图未更新 经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。 v-</description>
+    </item>
+    
     <item>
       <title>Python中sorted使用的排序算法</title>
       <link>https://star-lights.github.io/post/timsort/</link>

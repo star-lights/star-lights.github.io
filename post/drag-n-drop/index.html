@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>“托拉拽”bug修复经验小结 - Starlights</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="张耀华" /><meta name="description" content="1.表单数据已更新，视图未更新 经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。 v-" /><meta name="keywords" content="Clustar, Enginnering, Team, Blog, Starlight, Starlights" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://star-lights.github.io/post/drag-n-drop/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="“托拉拽”bug修复经验小结" />
+<meta property="og:description" content="1.表单数据已更新，视图未更新 经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。 v-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://star-lights.github.io/post/drag-n-drop/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-27T14:01:55&#43;08:00" />
+<meta property="article:modified_time" content="2021-10-27T14:01:55&#43;08:00" />
+
+<meta itemprop="name" content="“托拉拽”bug修复经验小结">
+<meta itemprop="description" content="1.表单数据已更新，视图未更新 经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。 v-"><meta itemprop="datePublished" content="2021-10-27T14:01:55&#43;08:00" />
+<meta itemprop="dateModified" content="2021-10-27T14:01:55&#43;08:00" />
+<meta itemprop="wordCount" content="1169">
+<meta itemprop="keywords" content="拖拉拽,Javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="“托拉拽”bug修复经验小结"/>
+<meta name="twitter:description" content="1.表单数据已更新，视图未更新 经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。 v-"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Starlights 星光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Starlights 星光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">“托拉拽”bug修复经验小结</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"> 前端开发 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="1表单数据已更新视图未更新">1.表单数据已更新，视图未更新</h2>
+<p><img src="/images/dnd1.png" alt="drag-n-drop1"></p>
+<p>经排查是因为代码中使用了v-show 进行右侧的表单显示和隐藏，应该使用v-if进行动态控制表单的显示隐藏。</p>
+<p><strong>v-if和v-show区别：</strong></p>
+<p>v-if：会根据条件动态渲染销毁DOM节点。</p>
+<p>v-show：通过css属性display：none 显示隐藏节点，此时dom节点并未销毁。</p>
+<p><strong>v-if切换时候会实时销毁重新加载事件和钩子函数，v-show只在首次渲染时候会执行，在切换时候不会执行生命周期过程</strong></p>
+<h2 id="2拖拽左侧菜单组件到画布过程中当拖放元素放置到画布内含有元素的地方组件位置发生偏移">2.拖拽左侧菜单组件到画布过程中，当拖放元素放置到画布内含有元素的地方，组件位置发生偏移。</h2>
+<p><img src="/images/dnd2.png" alt="drag-n-drop1"></p>
+<p>这个bug是因为event事件中的tartget属性和currentTarget属性引起的。</p>
+<p><strong>tartget和currentTarget区别：</strong></p>
+<p>tartget：获取的是触发事件的标签元素。</p>
+<p>currentTarget： 获取的是发起事件的标签元素。</p>
+<p>因为G6需要计算组件相对于画布的位置，所以需要获取的是绑定事件的DOM元素的坐标而不是触发事件的DOM元素坐标。</p>
+<h2 id="3使用g6中的toolbar组件放大缩小画布快速点击放大缩小按钮画布中的元素会变蓝">3.使用G6中的toolbar组件放大缩小画布，快速点击放大缩小按钮画布中的元素会变蓝。</h2>
+<p>产生原因快速点击会导致会导致画布内的元素被选中。</p>
+<p>解决方案：添加<strong>user-select：none属性</strong></p>
+<p>user-select属性对浏览器兼容性不是很友好，所以要针对不同浏览器分别设置。</p>
+<p>-moz-user-select:none;/<em>火狐</em>/</p>
+<p>-webkit-user-select:none;/<em>webkit浏览器</em>/</p>
+<p>-ms-user-select:none;/<em>IE10</em>/</p>
+<p>-khtml-user-select:none;/<em>早期浏览器</em>/</p>
+<p>user-select:none;</p>
+<p>Ie6-9不支持此属性所以应特别设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">onselectstart</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">ondrag</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span>
+	<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4表单内对应的表单项默认值为-1当用户进行删除操作表单项中的内容变成nan并且input无法输入内容">4.表单内对应的表单项默认值为-1，当用户进行删除操作表单项中的内容变成NaN并且input无法输入内容。</h2>
+<p><img src="/images/dnd3.png" alt="drag-n-drop1"></p>
+<p>出现该问题的原因是：后台需要int类型的值 ，项目中使用了antdesignvue 当用户删除的时候实时触发了normalize事件，代码中会将该表单项的值转换为int类型的值，当遇到 **&quot;-&quot;**时，因为不是数值所以会转换为NAN 。</p>
+<p><strong>解决方案：对特殊符号做判断，如果是特殊字符则不转换为int。</strong></p>
+<h2 id="5拖拽多个组件删除某一组件对该组件的下标进行修改">5.拖拽多个组件，删除某一组件对该组件的下标进行修改。</h2>
+<p>左侧算法组件有多个，拖拽到画布中应将拖拽的组件按照Id进行分类，当删除某一项时候根据id找到对应的一组相应的组件，然后修改对应的下标，而不是对画布上的所有组件进行操作。</p>
+<h6 id="对应的逻辑代码应如下">对应的逻辑代码应如下：</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">            <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;node&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kr">const</span> <span class="nx">currentId</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="kd">let</span> <span class="nx">label</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">).</span><span class="nx">label</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+                <span class="nx">label</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+                <span class="nx">label</span> <span class="o">=</span> <span class="nx">label</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+                <span class="kr">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">(</span><span class="nx">node</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">node</span><span class="p">.</span><span class="nx">id</span>
+                <span class="p">})</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="kr">const</span> <span class="nx">nodeMap</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">curr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">curr</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">memo</span><span class="p">[</span><span class="nx">id</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="nx">memo</span><span class="p">[</span><span class="nx">id</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">curr</span><span class="p">)</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nx">memo</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">curr</span><span class="p">]</span>
+                    <span class="p">}</span>
+
+                    <span class="k">return</span> <span class="nx">memo</span>
+                <span class="p">},</span> <span class="p">{})</span>
+                <span class="kd">let</span> <span class="nx">allNodes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span>
+                <span class="nx">allNodes</span> <span class="o">=</span> <span class="nx">allNodes</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="nx">id</span> <span class="o">!==</span> <span class="nx">currentId</span>
+                <span class="p">})</span>
+                <span class="kd">let</span> <span class="nx">changeNode</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="nx">changeNode</span> <span class="o">=</span>
+                    <span class="nx">nodeMap</span><span class="p">[</span><span class="nx">currentId</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
+                    <span class="nx">nodeMap</span><span class="p">[</span><span class="nx">currentId</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="p">{</span>
+                            <span class="p">...</span><span class="nx">item</span><span class="p">,</span>
+                            <span class="nx">label</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">label</span><span class="si">}</span><span class="sb">_</span><span class="si">${</span><span class="nx">index</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+                            <span class="nx">id</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">currentId</span><span class="si">}</span><span class="sb">_</span><span class="si">${</span><span class="nx">index</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+                        <span class="p">}</span>
+                    <span class="p">})</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">changeNode</span> <span class="o">&amp;&amp;</span> <span class="nx">changeNode</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">allNodes</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">allNodes</span><span class="p">,</span> <span class="p">...</span><span class="nx">changeNode</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span> <span class="o">=</span> <span class="nx">allNodes</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">isFoldRight</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span>
+            <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">张耀华</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%8B%96%E6%8B%89%E6%8B%BD/">拖拉拽</a>
+          <a href="/tags/javascript/">Javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/timsort/">
+            <span class="next-text nav-default">Python中sorted使用的排序算法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://stackoverflow.com" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://google.com" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://zhihu.com" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://douban.com" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://star-lights.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clustar Engineering Team</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
